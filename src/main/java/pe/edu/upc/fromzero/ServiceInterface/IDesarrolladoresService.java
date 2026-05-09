@@ -10,4 +10,5 @@ public interface IDesarrolladoresService {
     public void UpdateDesarrollador(Desarrolladores desarrollador);
     public void DeleteDesarrollador(int IdDesarrollador);
     public Optional<Desarrolladores> GetDesarrolladorById(int IdDesarrollador);
+    List<Object[]> GetQuery2();
 }
