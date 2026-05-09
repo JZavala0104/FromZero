@@ -38,4 +38,7 @@ public class TareasServiceImplement implements ITareasService {
     public Optional<Tareas> GetTareaById(int IdTarea) {
         return tareasRepository.findById(IdTarea);
     }
+
+    @Override
+    public List<Object[]> GetQuery4() { return tareasRepository.GetQuery4(); }
 }

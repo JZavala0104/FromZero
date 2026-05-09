@@ -10,4 +10,6 @@ public interface ITareasService {
     public void UpdateTarea(Tareas tarea);
     public void DeleteTarea(int IdTarea);
     public Optional<Tareas> GetTareaById(int IdTarea);
+
+    List<Object[]> GetQuery4();
 }

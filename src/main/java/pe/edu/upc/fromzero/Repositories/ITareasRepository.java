@@ -9,4 +9,9 @@ import java.util.List;
 @Repository
 public interface ITareasRepository extends JpaRepository<Tareas, Integer> {
 
+    @Query(value = "SELECT t.Estado, COUNT(t.IdTarea) " +
+            "FROM Tareas t " +
+            "GROUP BY t.Estado", nativeQuery = true)
+    List<Object[]> GetQuery4();
+
 }

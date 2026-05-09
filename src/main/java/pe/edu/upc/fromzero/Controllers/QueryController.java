@@ -67,4 +67,41 @@ public class QueryController {
 
         return ResponseEntity.ok(respuesta);
     }
+
+    @Autowired
+    private ITareasService TareasService;
+
+    @GetMapping("/Query3")
+    public ResponseEntity<?> Query3() {
+        List<Object[]> lista = ProyectosService.GetQuery3();
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay proyectos activos");
+        }
+        List<Query3DTO> respuesta = new ArrayList<>();
+        for (Object[] fila : lista) {
+            Query3DTO dto = new Query3DTO();
+            dto.setIdProyecto(((Number) fila[0]).intValue());
+            dto.setTitulo((String) fila[1]);
+            dto.setPresupuesto(((Number) fila[2]).doubleValue());
+            dto.setNombreEmpresa((String) fila[3]);
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping("/Query4")
+    public ResponseEntity<?> Query4() {
+        List<Object[]> lista = TareasService.GetQuery4();
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay tareas registradas");
+        }
+        List<Query4DTO> respuesta = new ArrayList<>();
+        for (Object[] fila : lista) {
+            Query4DTO dto = new Query4DTO();
+            dto.setEstado((String) fila[0]);
+            dto.setCantidad(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
 }
