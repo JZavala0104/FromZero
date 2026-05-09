@@ -24,6 +24,11 @@ public class QueryController {
     private INotificacionesService NotificacionesService;
     @Autowired
     private IRevisionesService RevisionesService;
+    @Autowired
+    private IUrgentProyectoService UrgentProyectoService;
+
+    @Autowired
+    private IAiInteractionService AiInteractionsService;
 
     @GetMapping("/Query1")
     public ResponseEntity<?> Query1(){
@@ -100,6 +105,39 @@ public class QueryController {
             Query4DTO dto = new Query4DTO();
             dto.setEstado((String) fila[0]);
             dto.setCantidad(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
+    @GetMapping("/Query7")
+    //@PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador')")
+    public ResponseEntity<?> Query7(@RequestParam("developerId") Long developerId){
+        List<Object[]> Query7 = UrgentProyectoService.GetQuery7(developerId);
+        if(Query7.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay datos");
+        }
+        List<Query7DTO> respuesta = new ArrayList<>();
+        for(Object[] fila: Query7){
+            Query7DTO dto = new Query7DTO();
+            dto.setProyecto((String) fila[0]);
+            dto.setEmpresa((String) fila[1]);
+            dto.setFechaEntrega(fila[2].toString());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
+    @GetMapping("/Query8")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Gerente')")
+    public ResponseEntity<?> Query8(){
+        List<Object[]> Query8 = AiInteractionsService.GetQuery8();
+        if(Query8.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay datos");
+        }
+        List<Query8DTO> respuesta = new ArrayList<>();
+        for(Object[] fila: Query8){
+            Query8DTO dto = new Query8DTO();
+            dto.setProyecto((String) fila[0]);
+            dto.setTotalInteracciones(((Number) fila[1]).intValue());
             respuesta.add(dto);
         }
         return ResponseEntity.ok(respuesta);
