@@ -37,6 +37,9 @@ public class ProyectosController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostProyectos(@RequestBody ProyectosDTO dto) {
+        if (dto.getTitulo() == null || dto.getIdEmpresa() == 0 || dto.getPresupuesto() == 0 || dto.getDescripcion() == null || dto.getEstado() == null || dto.getFechaInicio() == null || dto.getFechaFin() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El proyecto no puede ser nulo");
         }
@@ -49,6 +52,9 @@ public class ProyectosController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutProyectos(@RequestBody ProyectosDTO dto) {
+        if (dto.getTitulo() == null || dto.getIdEmpresa() == 0 || dto.getPresupuesto() == 0 || dto.getDescripcion() == null || dto.getEstado() == null || dto.getFechaInicio() == null || dto.getFechaFin() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         Optional<Proyectos> existente = ProyectosService.GetProyectoById(dto.getIdProject());
 
         if (existente.isEmpty()) {

@@ -37,6 +37,9 @@ public class UsuariosController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostUsuarios(@RequestBody UsuariosDTO dto) {
+        if (dto.getNombre() == null || dto.getEmail() == null || dto.getPassword() == null || dto.getFechaRegistro() == null || dto.getIdRol() == 0 || dto.getUsername() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El usuario no puede ser nulo");
         }
@@ -49,6 +52,9 @@ public class UsuariosController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutUsuarios(@RequestBody UsuariosDTO dto) {
+        if (dto.getNombre() == null || dto.getEmail() == null || dto.getPassword() == null || dto.getFechaRegistro() == null || dto.getIdRol() == 0 || dto.getUsername() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         Optional<Usuarios> usuarioExistente = UsuariosService.GetUsuarioById(dto.getIdUser());
 
         if (usuarioExistente.isEmpty()) {

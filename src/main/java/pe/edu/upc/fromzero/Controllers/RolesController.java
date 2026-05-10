@@ -30,6 +30,9 @@ public class RolesController {
     }
     @PostMapping("/Post")
     public ResponseEntity<?> PostRoles(@RequestBody RolesDTO dto){
+        if (dto.getNombre() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre del rol no puede ser nulo");
+        }
         if (dto == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El rol no puede ser nulo");
         }
@@ -41,6 +44,9 @@ public class RolesController {
     }
     @PutMapping("/Put")
     public ResponseEntity<?> PutRoles(@RequestBody RolesDTO dto){
+        if (dto.getNombre() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre del rol no puede ser nulo");
+        }
         Optional<Roles> rol = RolesService.GetRolById(dto.getIdRol());
         if (rol.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El rol no existe");

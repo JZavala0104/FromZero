@@ -37,6 +37,9 @@ public class EmpresasController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostEmpresas(@RequestBody EmpresasDTO dto) {
+        if (dto.getDescripcion() == null || dto.getNombreEmpresa() == null    || dto.getIdUser() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La empresa no puede ser nula");
         }
@@ -49,6 +52,9 @@ public class EmpresasController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutEmpresas(@RequestBody EmpresasDTO dto) {
+        if (dto.getDescripcion() == null || dto.getNombreEmpresa() == null    || dto.getIdUser() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         Optional<Empresas> existente = EmpresasService.GetEmpresaById(dto.getIdEmpresa());
 
         if (existente.isEmpty()) {

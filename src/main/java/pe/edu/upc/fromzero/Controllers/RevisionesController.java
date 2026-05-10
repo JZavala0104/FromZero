@@ -37,6 +37,9 @@ public class RevisionesController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostRevisiones(@RequestBody RevisionesDTO dto) {
+        if (dto.getComentar() == null || dto.getEstado() == null || dto.getFecha() == null   || dto.getIdTarea() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La revisión no puede ser nula");
         }
@@ -49,6 +52,9 @@ public class RevisionesController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutRevisiones(@RequestBody RevisionesDTO dto) {
+        if (dto.getComentar() == null || dto.getEstado() == null || dto.getFecha() == null   || dto.getIdTarea() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         Optional<Revisiones> existente = RevisionesService.GetRevisionById(dto.getIdRevision());
 
         if (existente.isEmpty()) {

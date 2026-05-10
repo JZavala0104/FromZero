@@ -37,6 +37,9 @@ public class ValoracionesController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostValoraciones(@RequestBody ValoracionesDTO dto) {
+        if (dto.getIdProyecto() == 0 || dto.getComentario() == null || dto.getPuntuacion() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La valoración no puede ser nula");
         }
@@ -49,6 +52,9 @@ public class ValoracionesController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutValoraciones(@RequestBody ValoracionesDTO dto) {
+        if (dto.getIdProyecto() == 0 || dto.getComentario() == null || dto.getPuntuacion() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         Optional<Valoraciones> existente = ValoracionesService.GetValoracionById(dto.getIdValoracion());
 
         if (existente.isEmpty()) {

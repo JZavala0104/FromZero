@@ -37,6 +37,9 @@ public class TareasController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostTareas(@RequestBody TareasDTO dto) {
+        if (dto.getTitulo() == null || dto.getEstado() == null || dto.getFechaLimite() == null || dto.getDescripcion() == null || dto.getIdProyecto() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La tarea no puede ser nula");
         }
@@ -49,6 +52,9 @@ public class TareasController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutTareas(@RequestBody TareasDTO dto) {
+        if (dto.getTitulo() == null || dto.getEstado() == null || dto.getFechaLimite() == null || dto.getDescripcion() == null || dto.getIdProyecto() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         Optional<Tareas> existente = TareasService.GetTareaById(dto.getIdTarea());
 
         if (existente.isEmpty()) {
