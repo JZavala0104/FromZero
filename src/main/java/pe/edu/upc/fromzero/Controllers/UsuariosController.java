@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.UsuariosDTO;
+import pe.edu.upc.fromzero.DTO.UsuariosGetDTO;
 import pe.edu.upc.fromzero.Entities.Usuarios;
 import pe.edu.upc.fromzero.ServiceInterface.IUsuariosService;
 
@@ -25,8 +26,8 @@ public class UsuariosController {
     @GetMapping("/Get")
     public ResponseEntity<?> GetUsuarios() {
         ModelMapper m = new ModelMapper();
-        List<UsuariosDTO> usuariosDTO = UsuariosService.GetUsuario().stream()
-                .map(u -> m.map(u, UsuariosDTO.class))
+        List<UsuariosGetDTO> usuariosDTO = UsuariosService.GetUsuario().stream()
+                .map(u -> m.map(u, UsuariosGetDTO.class))
                 .collect(Collectors.toList());
 
         if (usuariosDTO.isEmpty()) {
