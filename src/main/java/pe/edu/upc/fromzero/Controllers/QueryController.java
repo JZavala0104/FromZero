@@ -109,6 +109,43 @@ public class QueryController {
         }
         return ResponseEntity.ok(respuesta);
     }
+
+    @GetMapping("/Query5")
+    public ResponseEntity<?> Query5() {
+        List<Object[]> Query5 = NotificacionesService.GetQuery5();
+        if (Query5.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay datos");
+        }
+        List<Query5DTO> respuesta = new ArrayList<>();
+        for (Object[] fila : Query5) {
+            Query5DTO dto = new Query5DTO();
+            dto.setUsuario((String) fila[0]);
+            dto.setMensaje((String) fila[1]);
+            dto.setFecha(fila[2].toString());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping("/Query6")
+    public ResponseEntity<?> Query6() {
+        List<Object[]> Query6 = RevisionesService.GetQuery6();
+        if (Query6.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay datos");
+        }
+        List<Query6DTO> respuesta = new ArrayList<>();
+        for (Object[] fila : Query6) {
+            Query6DTO dto = new Query6DTO();
+            dto.setTarea((String) fila[0]);
+            dto.setProyecto((String) fila[1]);
+            dto.setEstado((String) fila[2]);
+            dto.setComentario((String) fila[3]);
+            dto.setFecha(fila[4].toString());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
+
     @GetMapping("/Query7")
     //@PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador')")
     public ResponseEntity<?> Query7(@RequestParam("developerId") Long developerId){
