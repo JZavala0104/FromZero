@@ -38,4 +38,9 @@ public class CodigoGeneradoServiceImplement implements ICodigoGeneradoService {
     public Optional<CodigoGenerado> GetCodigoGeneradoById(int idCodigoGenerado) {
         return CGRepository.findById(idCodigoGenerado);
     }
+
+    @Override
+    public List<Object[]> getQuery9() {
+        return CGRepository.getQuery9();
+    }
 }

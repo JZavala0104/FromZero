@@ -26,6 +26,8 @@ public class QueryController {
     private IRevisionesService RevisionesService;
     @Autowired
     private IUrgentProyectoService UrgentProyectoService;
+    @Autowired
+    private ICodigoGeneradoService codigoGeneradoService;
 
     @Autowired
     private IAiInteractionService AiInteractionsService;
@@ -175,6 +177,45 @@ public class QueryController {
             Query8DTO dto = new Query8DTO();
             dto.setProyecto((String) fila[0]);
             dto.setTotalInteracciones(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping("/Query9")
+
+    public ResponseEntity<?> Query9(){
+        List<Object[]> Query9 = codigoGeneradoService.getQuery9();
+        if(Query9.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay datos");
+        }
+        List<Query9DTO> respuesta = new ArrayList<>();
+        for(Object[] fila: Query9){
+            Query9DTO dto = new Query9DTO();
+            dto.setUsuario((String) fila[0]);
+            dto.setLenguaje((String) fila[1]);
+            dto.setTotalGeneraciones(((Number) fila[2]).intValue());
+            dto.setUltimaGeneracion(fila[3] != null ? fila[3].toString() : null);
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping("/Query10")
+
+    public ResponseEntity<?> Query10(){
+        List<Object[]> Query10 = ProyectosService.getQuery10();
+        if(Query10.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay datos");
+        }
+        List<Query10DTO> respuesta = new ArrayList<>();
+        for(Object[] fila: Query10){
+            Query10DTO dto = new Query10DTO();
+            dto.setTitulo((String) fila[0]);
+            dto.setEmpresa((String) fila[1]);
+            dto.setFechaFin(fila[2] != null ? fila[2].toString() : null);
+            dto.setEstado((String) fila[3]);
+            dto.setTareasPendientes(((Number) fila[4]).intValue());
             respuesta.add(dto);
         }
         return ResponseEntity.ok(respuesta);

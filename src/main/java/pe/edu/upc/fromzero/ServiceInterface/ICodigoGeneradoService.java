@@ -10,4 +10,5 @@ public interface ICodigoGeneradoService {
     public void UpdateCodigoGenerado(CodigoGenerado codigoGenerado);
     public void DeleteCodigoGenerado(int idCodigoGenerado);
     public Optional<CodigoGenerado> GetCodigoGeneradoById(int idCodigoGenerado);
+    List<Object[]> getQuery9();
 }

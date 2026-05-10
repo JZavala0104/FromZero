@@ -21,5 +21,14 @@ public interface IProyectosRepository extends JpaRepository<Proyectos, Integer> 
             "WHERE p.desarrollador_id = :developerId AND p.estado = 'En Progreso' " +
             "ORDER BY p.fecha_limite ASC", nativeQuery = true)
     List<Object[]> GetQuery7(@Param("developerId") Long developerId);
+    @Query(value = "SELECT p.titulo, e.nombre_empresa, p.fecha_fin, p.estado, " +
+            "COUNT(t.id_tarea) AS tareas_pendientes " +
+            "FROM proyectos p " +
+            "JOIN empresas e ON p.id_empresa = e.id_empresa " +
+            "LEFT JOIN tareas t ON t.id_proyecto = p.id_project AND t.estado = 'Pendiente' " +
+            "WHERE p.estado = 'En Progreso' AND p.fecha_fin <= NOW() + INTERVAL '30 days' " +
+            "GROUP BY p.titulo, e.nombre_empresa, p.fecha_fin, p.estado " +
+            "ORDER BY p.fecha_fin ASC", nativeQuery = true)
+    List<Object[]> getQuery10();
 }
 

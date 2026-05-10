@@ -41,4 +41,9 @@ public class ProyectoServiceImplement implements IProyectosService {
 
     @Override
     public List<Object[]> GetQuery3() { return ProyectosRepository.GetQuery3(); }
+
+    @Override
+    public List<Object[]> getQuery10() {
+        return ProyectosRepository.getQuery10();
+    }
 }

@@ -12,4 +12,5 @@ public interface IProyectosService {
     public Optional<Proyectos> GetProyectoById(int IdProyecto);
 
     List<Object[]> GetQuery3();
+    List<Object[]> getQuery10();
 }
