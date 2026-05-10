@@ -8,5 +8,6 @@ import pe.edu.upc.fromzero.Entities.Usuarios;
 
 @Repository
 public interface IUsuariosRepository extends JpaRepository<Usuarios, Integer> {
+    public Usuarios findOneByUsername(String username);
 }
 
