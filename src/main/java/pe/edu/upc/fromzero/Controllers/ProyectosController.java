@@ -1,6 +1,7 @@
 package pe.edu.upc.fromzero.Controllers;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,10 @@ public class ProyectosController {
     @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte', 'Gerente', 'Analista', 'Consultor')")
     public ResponseEntity<?> GetProyectos() {
         ModelMapper m = new ModelMapper();
+        m.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        m.typeMap(Proyectos.class, ProyectosDTO.class).addMappings(mapper -> {
+            mapper.map(src -> src.getIdEmpresa().getIdEmpresa(), ProyectosDTO::setIdEmpresa);
+        });
         List<ProyectosDTO> listaDTO = ProyectosService.GetProyecto().stream()
                 .map(p -> m.map(p, ProyectosDTO.class))
                 .collect(Collectors.toList());
