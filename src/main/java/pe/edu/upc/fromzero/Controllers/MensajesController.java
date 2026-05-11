@@ -37,6 +37,9 @@ public class MensajesController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostMensajes(@RequestBody MensajesDTO dto) {
+        if (dto.getIdUser() == 0 || dto.getIdProyecto() == 0 || dto.getMensaje() == null || dto.getFecha() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El mensaje no puede ser nulo");
         }
@@ -49,6 +52,9 @@ public class MensajesController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutMensajes(@RequestBody MensajesDTO dto) {
+        if (dto.getIdUser() == 0 || dto.getIdProyecto() == 0 || dto.getMensaje() == null || dto.getFecha() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         Optional<Mensajes> existente = MensajesService.GetMensajeById(dto.getIdMensaje());
 
         if (existente.isEmpty()) {

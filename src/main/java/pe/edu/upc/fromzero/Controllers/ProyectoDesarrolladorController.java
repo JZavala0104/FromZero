@@ -37,6 +37,9 @@ public class ProyectoDesarrolladorController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostProyectoDesarrollador(@RequestBody ProyectoDesarrolladorDTO dto) {
+        if (dto.getIdDesarrollador() == 0 || dto.getIdProyecto() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La asignación no puede ser nula");
         }
@@ -49,6 +52,9 @@ public class ProyectoDesarrolladorController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutProyectoDesarrollador(@RequestBody ProyectoDesarrolladorDTO dto) {
+        if (dto.getIdDesarrollador() == 0 || dto.getIdProyecto() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         Optional<ProyectoDesarrollador> existente = ProyectoDesarrolladorService.GetProyectoDesarrolladorById(dto.getIdProyDesar());
 
         if (existente.isEmpty()) {

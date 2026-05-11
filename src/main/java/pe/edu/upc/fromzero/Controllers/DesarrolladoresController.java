@@ -37,6 +37,9 @@ public class DesarrolladoresController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostDesarrolladores(@RequestBody DesarrolladoresDTO dto) {
+        if (dto.getHabilidades() == null || dto.getPortafolio() == null || dto.getExperiencia() == 0 || dto.getIdUser() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El desarrollador no puede ser nulo");
         }
@@ -49,6 +52,9 @@ public class DesarrolladoresController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutDesarrolladores(@RequestBody DesarrolladoresDTO dto) {
+        if (dto.getHabilidades() == null || dto.getPortafolio() == null || dto.getExperiencia() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         Optional<Desarrolladores> existente = DesarrolladoresService.GetDesarrolladorById(dto.getIdDesarrollador());
 
         if (existente.isEmpty()) {

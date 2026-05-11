@@ -37,6 +37,9 @@ public class TipsIAController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostTipsIA(@RequestBody TipsIADTO dto) {
+        if (dto.getContenido() == null || dto.getFecha() == null || dto.getIdUser() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Todos los campos son obligatorios");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El tip no puede ser nulo");
         }
@@ -49,6 +52,9 @@ public class TipsIAController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutTipsIA(@RequestBody TipsIADTO dto) {
+        if (dto.getContenido() == null || dto.getFecha() == null || dto.getIdUser() == 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El contenido del tip es obligatorio");
+        }
         Optional<TipsIA> existente = TipsIAService.GetTipsIAById(dto.getIdTip());
 
         if (existente.isEmpty()) {

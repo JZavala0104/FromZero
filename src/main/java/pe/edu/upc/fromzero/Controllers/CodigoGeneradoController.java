@@ -39,6 +39,9 @@ public class CodigoGeneradoController {
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El código generado no puede ser nulo");
         }
+        if (dto.getPrompt() == null || dto.getCodigo() == null || dto.getLenguaje() == null || dto.getFecha() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         ModelMapper m = new ModelMapper();
         CodigoGenerado c = m.map(dto, CodigoGenerado.class);
         CodigoGenerado nuevo = CodigoGeneradoService.InsertCodigoGenerado(c);
@@ -54,8 +57,8 @@ public class CodigoGeneradoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El registro de código no existe");
         }
 
-        if (dto.getPrompt() == null || dto.getCodigo() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El prompt y el código no pueden ser nulos");
+        if (dto.getPrompt() == null || dto.getCodigo() == null || dto.getLenguaje() == null || dto.getFecha() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
         }
 
         CodigoGenerado c = existente.get();

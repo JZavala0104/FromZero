@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.*;
 import pe.edu.upc.fromzero.ServiceInterface.*;
@@ -32,7 +33,11 @@ public class QueryController {
     @Autowired
     private IAiInteractionService AiInteractionsService;
 
+    @Autowired
+    private ITareasService TareasService;
+
     @GetMapping("/Query1")
+    @PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador', 'Consultor')")
     public ResponseEntity<?> Query1(){
         List<Object[]> Query1 = EmpresasService.GetQuery1();
         if(Query1.isEmpty()){
@@ -52,6 +57,7 @@ public class QueryController {
     }
 
     @GetMapping("/Query2")
+    @PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador', 'Consultor')")
     public ResponseEntity<?> Query2() {
         List<Object[]> Query2 = DesarrolladoresService.GetQuery2();
 
@@ -75,10 +81,8 @@ public class QueryController {
         return ResponseEntity.ok(respuesta);
     }
 
-    @Autowired
-    private ITareasService TareasService;
-
     @GetMapping("/Query3")
+    @PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador', 'Consultor')")
     public ResponseEntity<?> Query3() {
         List<Object[]> lista = ProyectosService.GetQuery3();
         if (lista.isEmpty()) {
@@ -97,6 +101,7 @@ public class QueryController {
     }
 
     @GetMapping("/Query4")
+    @PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador', 'Consultor')")
     public ResponseEntity<?> Query4() {
         List<Object[]> lista = TareasService.GetQuery4();
         if (lista.isEmpty()) {
@@ -113,6 +118,7 @@ public class QueryController {
     }
 
     @GetMapping("/Query5")
+    @PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador', 'Consultor')")
     public ResponseEntity<?> Query5() {
         List<Object[]> Query5 = NotificacionesService.GetQuery5();
         if (Query5.isEmpty()) {
@@ -130,6 +136,7 @@ public class QueryController {
     }
 
     @GetMapping("/Query6")
+    @PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador', 'Consultor')")
     public ResponseEntity<?> Query6() {
         List<Object[]> Query6 = RevisionesService.GetQuery6();
         if (Query6.isEmpty()) {
@@ -149,7 +156,7 @@ public class QueryController {
     }
 
     @GetMapping("/Query7")
-    //@PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador')")
+    @PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador', 'Consultor')")
     public ResponseEntity<?> Query7(@RequestParam("developerId") Long developerId){
         List<Object[]> Query7 = UrgentProyectoService.GetQuery7(developerId);
         if(Query7.isEmpty()){
@@ -166,7 +173,7 @@ public class QueryController {
         return ResponseEntity.ok(respuesta);
     }
     @GetMapping("/Query8")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Gerente')")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Gerente')")
     public ResponseEntity<?> Query8(){
         List<Object[]> Query8 = AiInteractionsService.GetQuery8();
         if(Query8.isEmpty()){
@@ -183,7 +190,7 @@ public class QueryController {
     }
 
     @GetMapping("/Query9")
-
+    @PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador', 'Consultor')")
     public ResponseEntity<?> Query9(){
         List<Object[]> Query9 = codigoGeneradoService.getQuery9();
         if(Query9.isEmpty()){
@@ -202,7 +209,7 @@ public class QueryController {
     }
 
     @GetMapping("/Query10")
-
+    @PreAuthorize("hasAnyAuthority('Desarrollador', 'Administrador', 'Consultor')")
     public ResponseEntity<?> Query10(){
         List<Object[]> Query10 = ProyectosService.getQuery10();
         if(Query10.isEmpty()){

@@ -37,6 +37,9 @@ public class NotificacionesController {
 
     @PostMapping("/Post")
     public ResponseEntity<?> PostNotificaciones(@RequestBody NotificacionesDTO dto) {
+        if (dto.getIdUser() == 0 || dto.getFecha() == null || dto.getMensaje() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La notificación no puede ser nula");
         }
@@ -49,6 +52,9 @@ public class NotificacionesController {
 
     @PutMapping("/Put")
     public ResponseEntity<?> PutNotificaciones(@RequestBody NotificacionesDTO dto) {
+        if (dto.getIdUser() == 0 || dto.getFecha() == null || dto.getMensaje() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
+        }
         Optional<Notificaciones> existente = NotificacionesService.GetNotificacionById(dto.getIdNotification());
 
         if (existente.isEmpty()) {
