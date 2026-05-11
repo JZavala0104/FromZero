@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.ProyectoDesarrolladorDTO;
 import pe.edu.upc.fromzero.Entities.ProyectoDesarrollador;
@@ -23,6 +24,7 @@ public class ProyectoDesarrolladorController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Gerente', 'Analista', 'Moderador', 'Soporte')")
     public ResponseEntity<?> GetProyectoDesarrollador() {
         ModelMapper m = new ModelMapper();
         List<ProyectoDesarrolladorDTO> listaDTO = ProyectoDesarrolladorService.GetProyectoDesarrollador().stream()
@@ -36,6 +38,7 @@ public class ProyectoDesarrolladorController {
     }
 
     @PostMapping("/Post")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Gerente')")
     public ResponseEntity<?> PostProyectoDesarrollador(@RequestBody ProyectoDesarrolladorDTO dto) {
         if (dto.getIdDesarrollador() == 0 || dto.getIdProyecto() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -51,6 +54,7 @@ public class ProyectoDesarrolladorController {
     }
 
     @PutMapping("/Put")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Gerente', 'Moderador')")
     public ResponseEntity<?> PutProyectoDesarrollador(@RequestBody ProyectoDesarrolladorDTO dto) {
         if (dto.getIdDesarrollador() == 0 || dto.getIdProyecto() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -71,6 +75,7 @@ public class ProyectoDesarrolladorController {
     }
 
     @DeleteMapping("/Delete/{IdProyDesar}")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
     public ResponseEntity<?> DeleteProyectoDesarrollador(@PathVariable("IdProyDesar") int IdProyDesar) {
         Optional<ProyectoDesarrollador> existente = ProyectoDesarrolladorService.GetProyectoDesarrolladorById(IdProyDesar);
 

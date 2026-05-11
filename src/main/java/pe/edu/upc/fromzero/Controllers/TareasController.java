@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.TareasDTO;
 import pe.edu.upc.fromzero.Entities.Tareas;
@@ -23,6 +24,7 @@ public class TareasController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte', 'Gerente', 'Analista', 'Tester')")
     public ResponseEntity<?> GetTareas() {
         ModelMapper m = new ModelMapper();
         List<TareasDTO> listaDTO = TareasService.GetTarea().stream()
@@ -36,6 +38,7 @@ public class TareasController {
     }
 
     @PostMapping("/Post")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Gerente')")
     public ResponseEntity<?> PostTareas(@RequestBody TareasDTO dto) {
         if (dto.getTitulo() == null || dto.getEstado() == null || dto.getFechaLimite() == null || dto.getDescripcion() == null || dto.getIdProyecto() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -51,6 +54,7 @@ public class TareasController {
     }
 
     @PutMapping("/Put")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Gerente', 'Moderador')")
     public ResponseEntity<?> PutTareas(@RequestBody TareasDTO dto) {
         if (dto.getTitulo() == null || dto.getEstado() == null || dto.getFechaLimite() == null || dto.getDescripcion() == null || dto.getIdProyecto() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -77,6 +81,7 @@ public class TareasController {
     }
 
     @DeleteMapping("/Delete/{IdTarea}")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
     public ResponseEntity<?> DeleteTareas(@PathVariable("IdTarea") int IdTarea) {
         Optional<Tareas> existente = TareasService.GetTareaById(IdTarea);
 

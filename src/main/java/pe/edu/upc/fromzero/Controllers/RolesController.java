@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.RolesDTO;
 import pe.edu.upc.fromzero.Entities.Roles;
@@ -20,6 +21,7 @@ public class RolesController {
     private IRolesService RolesService;
     /*CRUD------------------------------------*/
     @GetMapping("/Get")
+    @PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> GetRoles(){
         ModelMapper m = new ModelMapper();
         List<RolesDTO> rolesDTO = RolesService.GetRol().stream().map(r -> m.map(r, RolesDTO.class)).collect(Collectors.toList());
@@ -29,6 +31,7 @@ public class RolesController {
         return ResponseEntity.ok(rolesDTO);
     }
     @PostMapping("/Post")
+    @PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> PostRoles(@RequestBody RolesDTO dto){
         if (dto.getNombre() == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre del rol no puede ser nulo");
@@ -43,6 +46,7 @@ public class RolesController {
         return ResponseEntity.status(HttpStatus.CREATED).body(rolDTO);
     }
     @PutMapping("/Put")
+    @PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> PutRoles(@RequestBody RolesDTO dto){
         if (dto.getNombre() == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre del rol no puede ser nulo");
@@ -60,6 +64,7 @@ public class RolesController {
         return ResponseEntity.ok("Rol actualizado");
     }
     @DeleteMapping("/Delete/{IdRol}")
+    @PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> DeleteRoles(@PathVariable("IdRol") int IdRol){
         Optional<Roles> rol = RolesService.GetRolById(IdRol);
         if (rol.isEmpty()){

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.DesarrolladoresDTO;
 import pe.edu.upc.fromzero.Entities.Desarrolladores;
@@ -23,6 +24,7 @@ public class DesarrolladoresController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Gerente', 'Analista', 'Moderador')")
     public ResponseEntity<?> GetDesarrolladores() {
         ModelMapper m = new ModelMapper();
         List<DesarrolladoresDTO> listaDTO = DesarrolladoresService.GetDesarrollador().stream()
@@ -36,6 +38,7 @@ public class DesarrolladoresController {
     }
 
     @PostMapping("/Post")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador')")
     public ResponseEntity<?> PostDesarrolladores(@RequestBody DesarrolladoresDTO dto) {
         if (dto.getHabilidades() == null || dto.getPortafolio() == null || dto.getExperiencia() == 0 || dto.getIdUser() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -51,6 +54,7 @@ public class DesarrolladoresController {
     }
 
     @PutMapping("/Put")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Moderador')")
     public ResponseEntity<?> PutDesarrolladores(@RequestBody DesarrolladoresDTO dto) {
         if (dto.getHabilidades() == null || dto.getPortafolio() == null || dto.getExperiencia() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -76,6 +80,7 @@ public class DesarrolladoresController {
     }
 
     @DeleteMapping("/Delete/{IdDesarrollador}")
+    @PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> DeleteDesarrolladores(@PathVariable("IdDesarrollador") int IdDesarrollador) {
         Optional<Desarrolladores> existente = DesarrolladoresService.GetDesarrolladorById(IdDesarrollador);
 
