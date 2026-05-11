@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.ProyectosDTO;
 import pe.edu.upc.fromzero.Entities.Proyectos;
@@ -23,6 +24,7 @@ public class ProyectosController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte', 'Gerente', 'Analista', 'Consultor')")
     public ResponseEntity<?> GetProyectos() {
         ModelMapper m = new ModelMapper();
         List<ProyectosDTO> listaDTO = ProyectosService.GetProyecto().stream()
@@ -36,6 +38,7 @@ public class ProyectosController {
     }
 
     @PostMapping("/Post")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
     public ResponseEntity<?> PostProyectos(@RequestBody ProyectosDTO dto) {
         if (dto.getTitulo() == null || dto.getIdEmpresa() == 0 || dto.getPresupuesto() == 0 || dto.getDescripcion() == null || dto.getEstado() == null || dto.getFechaInicio() == null || dto.getFechaFin() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -51,6 +54,7 @@ public class ProyectosController {
     }
 
     @PutMapping("/Put")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Moderador')")
     public ResponseEntity<?> PutProyectos(@RequestBody ProyectosDTO dto) {
         if (dto.getTitulo() == null || dto.getIdEmpresa() == 0 || dto.getPresupuesto() == 0 || dto.getDescripcion() == null || dto.getEstado() == null || dto.getFechaInicio() == null || dto.getFechaFin() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -79,6 +83,7 @@ public class ProyectosController {
     }
 
     @DeleteMapping("/Delete/{IdProject}")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
     public ResponseEntity<?> DeleteProyectos(@PathVariable("IdProject") int IdProject) {
         Optional<Proyectos> existente = ProyectosService.GetProyectoById(IdProject);
 

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.UsuariosDTO;
 import pe.edu.upc.fromzero.DTO.UsuariosGetDTO;
@@ -24,6 +25,7 @@ public class UsuariosController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
+    @PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> GetUsuarios() {
         ModelMapper m = new ModelMapper();
         List<UsuariosGetDTO> usuariosDTO = UsuariosService.GetUsuario().stream()
@@ -52,6 +54,7 @@ public class UsuariosController {
     }
 
     @PutMapping("/Put")
+    @PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> PutUsuarios(@RequestBody UsuariosDTO dto) {
         if (dto.getNombre() == null || dto.getEmail() == null || dto.getPassword() == null || dto.getFechaRegistro() == null || dto.getIdRol() == 0 || dto.getUsername() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -79,6 +82,7 @@ public class UsuariosController {
     }
 
     @DeleteMapping("/Delete/{IdUser}")
+    @PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> DeleteUsuarios(@PathVariable("IdUser") int IdUser) {
         Optional<Usuarios> usuario = UsuariosService.GetUsuarioById(IdUser);
 

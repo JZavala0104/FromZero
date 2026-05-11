@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.EmpresasDTO;
 import pe.edu.upc.fromzero.Entities.Empresas;
@@ -23,6 +24,7 @@ public class EmpresasController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Gerente', 'Analista', 'Moderador')")
     public ResponseEntity<?> GetEmpresas() {
         ModelMapper m = new ModelMapper();
         List<EmpresasDTO> listaDTO = EmpresasService.GetEmpresa().stream()
@@ -36,6 +38,7 @@ public class EmpresasController {
     }
 
     @PostMapping("/Post")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
     public ResponseEntity<?> PostEmpresas(@RequestBody EmpresasDTO dto) {
         if (dto.getDescripcion() == null || dto.getNombreEmpresa() == null    || dto.getIdUser() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -51,6 +54,7 @@ public class EmpresasController {
     }
 
     @PutMapping("/Put")
+    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Moderador')")
     public ResponseEntity<?> PutEmpresas(@RequestBody EmpresasDTO dto) {
         if (dto.getDescripcion() == null || dto.getNombreEmpresa() == null    || dto.getIdUser() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -74,6 +78,7 @@ public class EmpresasController {
     }
 
     @DeleteMapping("/Delete/{IdEmpresa}")
+    @PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> DeleteEmpresas(@PathVariable("IdEmpresa") int IdEmpresa) {
         Optional<Empresas> existente = EmpresasService.GetEmpresaById(IdEmpresa);
 
