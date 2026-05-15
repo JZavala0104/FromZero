@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface IProyectosRepository extends JpaRepository<Proyectos, Integer> {
 
-    @Query(value = "SELECT p.IdProject, p.Titulo, p.Presupuesto, e.NombreEmpresa " +
-            "FROM Proyectos p " +
-            "INNER JOIN Empresas e ON p.IdEmpresa = e.IdEmpresa " +
-            "WHERE p.Estado = 'Activo'", nativeQuery = true)
+    @Query(value = "SELECT p.id_project, p.titulo, p.presupuesto, e.nombre_empresa " +
+            "FROM proyectos p " +
+            "INNER JOIN empresas e ON p.id_empresa = e.id_empresa " +
+            "WHERE p.estado = 'Activo'", nativeQuery = true)
     List<Object[]> GetQuery3();
     @Query(value = "SELECT p.titulo, e.nombre_empresa, p.fecha_limite " +
             "FROM proyectos p " +
