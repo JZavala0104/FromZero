@@ -23,7 +23,7 @@ public class CodigoGeneradoController {
 
     /*CRUD------------------------------------*/
     @GetMapping("/Get")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Tester', 'Analista', 'Soporte', 'Gerente', 'Consultor')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Tester', 'Analista', 'Soporte', 'Gerente', 'Consultor')")
     public ResponseEntity<?> GetCodigoGenerado() {
         ModelMapper m = new ModelMapper();
         List<CodigoGeneradoDTO> listaDTO = CodigoGeneradoService.GetCodigoGenerado().stream()
@@ -37,7 +37,7 @@ public class CodigoGeneradoController {
     }
 
     @PostMapping("/Post")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa')")
     public ResponseEntity<?> PostCodigoGenerado(@RequestBody CodigoGeneradoDTO dto) {
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El código generado no puede ser nulo");
@@ -53,7 +53,7 @@ public class CodigoGeneradoController {
     }
 
     @PutMapping("/Put")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Moderador')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Moderador')")
     public ResponseEntity<?> PutCodigoGenerado(@RequestBody CodigoGeneradoDTO dto) {
         Optional<CodigoGenerado> existente = CodigoGeneradoService.GetCodigoGeneradoById(dto.getIdCode());
 
@@ -77,7 +77,7 @@ public class CodigoGeneradoController {
     }
 
     @DeleteMapping("/Delete/{IdCode}")
-    @PreAuthorize("hasAnyAuthority('Administrador')")
+    //@PreAuthorize("hasAnyAuthority('Administrador')")
     public ResponseEntity<?> DeleteCodigoGenerado(@PathVariable("IdCode") int IdCode) {
         Optional<CodigoGenerado> existente = CodigoGeneradoService.GetCodigoGeneradoById(IdCode);
 

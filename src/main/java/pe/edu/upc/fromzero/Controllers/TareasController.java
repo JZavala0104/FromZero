@@ -24,7 +24,7 @@ public class TareasController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte', 'Gerente', 'Analista', 'Tester')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte', 'Gerente', 'Analista', 'Tester')")
     public ResponseEntity<?> GetTareas() {
         ModelMapper m = new ModelMapper();
         List<TareasDTO> listaDTO = TareasService.GetTarea().stream()
@@ -38,7 +38,7 @@ public class TareasController {
     }
 
     @PostMapping("/Post")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Gerente')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Gerente')")
     public ResponseEntity<?> PostTareas(@RequestBody TareasDTO dto) {
         if (dto.getTitulo() == null || dto.getEstado() == null || dto.getFechaLimite() == null || dto.getDescripcion() == null || dto.getIdProyecto() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -54,7 +54,7 @@ public class TareasController {
     }
 
     @PutMapping("/Put")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Gerente', 'Moderador')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Gerente', 'Moderador')")
     public ResponseEntity<?> PutTareas(@RequestBody TareasDTO dto) {
         if (dto.getTitulo() == null || dto.getEstado() == null || dto.getFechaLimite() == null || dto.getDescripcion() == null || dto.getIdProyecto() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -81,7 +81,7 @@ public class TareasController {
     }
 
     @DeleteMapping("/Delete/{IdTarea}")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
     public ResponseEntity<?> DeleteTareas(@PathVariable("IdTarea") int IdTarea) {
         Optional<Tareas> existente = TareasService.GetTareaById(IdTarea);
 
