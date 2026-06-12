@@ -23,9 +23,7 @@ public class ProyectosController {
     private IProyectosService ProyectosService;
 
     /*CRUD------------------------------------*/
-
     @GetMapping("/Get")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte', 'Gerente', 'Analista', 'Consultor')")
     public ResponseEntity<?> GetProyectos() {
         ModelMapper m = new ModelMapper();
         m.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -40,6 +38,24 @@ public class ProyectosController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay proyectos registrados");
         }
         return ResponseEntity.ok(listaDTO);
+    }
+
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetProyectoById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        m.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        m.typeMap(Proyectos.class, ProyectosDTO.class).addMappings(mapper -> {
+            mapper.map(src -> src.getIdEmpresa().getIdEmpresa(), ProyectosDTO::setIdEmpresa);
+        });
+
+        Optional<Proyectos> proyecto = ProyectosService.GetProyectoById(id);
+
+        if (proyecto.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Proyecto no encontrado");
+        }
+
+        ProyectosDTO dto = m.map(proyecto.get(), ProyectosDTO.class);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping("/Post")

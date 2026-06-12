@@ -37,6 +37,17 @@ public class DesarrolladoresController {
         return ResponseEntity.ok(listaDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetDesarrolladorById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Desarrolladores> desarrollador = DesarrolladoresService.GetDesarrolladorById(id);
+        if (desarrollador.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Desarrollador no encontrado");
+        }
+        DesarrolladoresDTO dto = m.map(desarrollador.get(), DesarrolladoresDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador')")
     public ResponseEntity<?> PostDesarrolladores(@RequestBody DesarrolladoresDTO dto) {

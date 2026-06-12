@@ -30,6 +30,18 @@ public class RolesController {
         }
         return ResponseEntity.ok(rolesDTO);
     }
+
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetRolById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Roles> rol = RolesService.GetRolById(id);
+        if (rol.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Rol no encontrado");
+        }
+        RolesDTO dto = m.map(rol.get(), RolesDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> PostRoles(@RequestBody RolesDTO dto){

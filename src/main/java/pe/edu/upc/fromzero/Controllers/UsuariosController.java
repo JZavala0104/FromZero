@@ -38,6 +38,17 @@ public class UsuariosController {
         return ResponseEntity.ok(usuariosDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetUsuarioById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Usuarios> usuario = UsuariosService.GetUsuarioById(id);
+        if (usuario.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+        }
+        UsuariosGetDTO dto = m.map(usuario.get(), UsuariosGetDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     public ResponseEntity<?> PostUsuarios(@RequestBody UsuariosDTO dto) {
         if (dto.getNombre() == null || dto.getEmail() == null || dto.getPassword() == null || dto.getFechaRegistro() == null || dto.getIdRol() == 0 || dto.getUsername() == null) {

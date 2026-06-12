@@ -37,6 +37,17 @@ public class EmpresasController {
         return ResponseEntity.ok(listaDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetEmpresaById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Empresas> empresa = EmpresasService.GetEmpresaById(id);
+        if (empresa.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empresa no encontrada");
+        }
+        EmpresasDTO dto = m.map(empresa.get(), EmpresasDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
     public ResponseEntity<?> PostEmpresas(@RequestBody EmpresasDTO dto) {
