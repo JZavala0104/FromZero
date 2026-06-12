@@ -37,6 +37,17 @@ public class RevisionesController {
         return ResponseEntity.ok(listaDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetRevisionById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Revisiones> revision = RevisionesService.GetRevisionById(id);
+        if (revision.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Revisión no encontrada");
+        }
+        RevisionesDTO dto = m.map(revision.get(), RevisionesDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Moderador', 'Tester')")
     public ResponseEntity<?> PostRevisiones(@RequestBody RevisionesDTO dto) {

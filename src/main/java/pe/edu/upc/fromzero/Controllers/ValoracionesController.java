@@ -37,6 +37,17 @@ public class ValoracionesController {
         return ResponseEntity.ok(listaDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetValoracionById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Valoraciones> valoracion = ValoracionesService.GetValoracionById(id);
+        if (valoracion.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Valoración no encontrada");
+        }
+        ValoracionesDTO dto = m.map(valoracion.get(), ValoracionesDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador')")
     public ResponseEntity<?> PostValoraciones(@RequestBody ValoracionesDTO dto) {

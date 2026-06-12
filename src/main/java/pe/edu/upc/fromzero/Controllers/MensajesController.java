@@ -37,6 +37,17 @@ public class MensajesController {
         return ResponseEntity.ok(listaDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetMensajeById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Mensajes> mensaje = MensajesService.GetMensajeById(id);
+        if (mensaje.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mensaje no encontrado");
+        }
+        MensajesDTO dto = m.map(mensaje.get(), MensajesDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Soporte')")
     public ResponseEntity<?> PostMensajes(@RequestBody MensajesDTO dto) {

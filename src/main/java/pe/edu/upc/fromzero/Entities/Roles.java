@@ -21,11 +21,11 @@ public class Roles implements Serializable {
         Nombre = name;
     }
 
-    public int getID() {
+    public int getIdRol() {
         return IdRol;
     }
 
-    public void setID(int ID) {
+    public void setIdRol(int ID) {
         this.IdRol = ID;
     }
 

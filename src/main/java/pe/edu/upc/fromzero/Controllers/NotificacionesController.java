@@ -37,6 +37,17 @@ public class NotificacionesController {
         return ResponseEntity.ok(listaDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetNotificacionById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Notificaciones> notificacion = NotificacionesService.GetNotificacionById(id);
+        if (notificacion.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Notificación no encontrada");
+        }
+        NotificacionesDTO dto = m.map(notificacion.get(), NotificacionesDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Moderador', 'Soporte')")
     public ResponseEntity<?> PostNotificaciones(@RequestBody NotificacionesDTO dto) {

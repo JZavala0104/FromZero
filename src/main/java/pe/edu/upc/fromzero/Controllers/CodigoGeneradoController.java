@@ -36,6 +36,17 @@ public class CodigoGeneradoController {
         return ResponseEntity.ok(listaDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetCodigoGeneradoById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<CodigoGenerado> codigo = CodigoGeneradoService.GetCodigoGeneradoById(id);
+        if (codigo.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Código no encontrado");
+        }
+        CodigoGeneradoDTO dto = m.map(codigo.get(), CodigoGeneradoDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa')")
     public ResponseEntity<?> PostCodigoGenerado(@RequestBody CodigoGeneradoDTO dto) {

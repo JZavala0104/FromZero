@@ -37,6 +37,17 @@ public class ProyectoDesarrolladorController {
         return ResponseEntity.ok(listaDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetProyectoDesarrolladorById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<ProyectoDesarrollador> pd = ProyectoDesarrolladorService.GetProyectoDesarrolladorById(id);
+        if (pd.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Asignación no encontrada");
+        }
+        ProyectoDesarrolladorDTO dto = m.map(pd.get(), ProyectoDesarrolladorDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Gerente')")
     public ResponseEntity<?> PostProyectoDesarrollador(@RequestBody ProyectoDesarrolladorDTO dto) {

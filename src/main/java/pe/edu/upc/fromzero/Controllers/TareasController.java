@@ -37,6 +37,17 @@ public class TareasController {
         return ResponseEntity.ok(listaDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetTareaById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Tareas> tarea = TareasService.GetTareaById(id);
+        if (tarea.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tarea no encontrada");
+        }
+        TareasDTO dto = m.map(tarea.get(), TareasDTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Gerente')")
     public ResponseEntity<?> PostTareas(@RequestBody TareasDTO dto) {

@@ -37,6 +37,17 @@ public class TipsIAController {
         return ResponseEntity.ok(listaDTO);
     }
 
+    @GetMapping("/Get/{id}")
+    public ResponseEntity<?> GetTipsIAById(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<TipsIA> tip = TipsIAService.GetTipsIAById(id);
+        if (tip.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tip no encontrado");
+        }
+        TipsIADTO dto = m.map(tip.get(), TipsIADTO.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/Post")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Moderador', 'Soporte')")
     public ResponseEntity<?> PostTipsIA(@RequestBody TipsIADTO dto) {
