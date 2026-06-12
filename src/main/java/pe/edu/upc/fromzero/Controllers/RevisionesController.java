@@ -24,7 +24,7 @@ public class RevisionesController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Tester', 'Soporte')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Tester', 'Soporte')")
     public ResponseEntity<?> GetRevisiones() {
         ModelMapper m = new ModelMapper();
         List<RevisionesDTO> listaDTO = RevisionesService.GetRevision().stream()
@@ -38,7 +38,7 @@ public class RevisionesController {
     }
 
     @PostMapping("/Post")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Moderador', 'Tester')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Moderador', 'Tester')")
     public ResponseEntity<?> PostRevisiones(@RequestBody RevisionesDTO dto) {
         if (dto.getComentar() == null || dto.getEstado() == null || dto.getFecha() == null   || dto.getIdTarea() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -54,7 +54,7 @@ public class RevisionesController {
     }
 
     @PutMapping("/Put")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Moderador', 'Tester')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Moderador', 'Tester')")
     public ResponseEntity<?> PutRevisiones(@RequestBody RevisionesDTO dto) {
         if (dto.getComentar() == null || dto.getEstado() == null || dto.getFecha() == null   || dto.getIdTarea() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -79,7 +79,7 @@ public class RevisionesController {
     }
 
     @DeleteMapping("/Delete/{IdRevision}")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
     public ResponseEntity<?> DeleteRevisiones(@PathVariable("IdRevision") int IdRevision) {
         Optional<Revisiones> existente = RevisionesService.GetRevisionById(IdRevision);
 

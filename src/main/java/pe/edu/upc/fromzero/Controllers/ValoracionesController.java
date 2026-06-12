@@ -24,7 +24,7 @@ public class ValoracionesController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Invitado', 'Soporte', 'Tester', 'Analista', 'Gerente', 'Consultor')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Invitado', 'Soporte', 'Tester', 'Analista', 'Gerente', 'Consultor')")
     public ResponseEntity<?> GetValoraciones() {
         ModelMapper m = new ModelMapper();
         List<ValoracionesDTO> listaDTO = ValoracionesService.GetValoracion().stream()
@@ -38,7 +38,7 @@ public class ValoracionesController {
     }
 
     @PostMapping("/Post")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador')")
     public ResponseEntity<?> PostValoraciones(@RequestBody ValoracionesDTO dto) {
         if (dto.getIdProyecto() == 0 || dto.getComentario() == null || dto.getPuntuacion() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -54,7 +54,7 @@ public class ValoracionesController {
     }
 
     @PutMapping("/Put")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador')")
     public ResponseEntity<?> PutValoraciones(@RequestBody ValoracionesDTO dto) {
         if (dto.getIdProyecto() == 0 || dto.getComentario() == null || dto.getPuntuacion() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -79,7 +79,7 @@ public class ValoracionesController {
     }
 
     @DeleteMapping("/Delete/{IdValoracion}")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Moderador')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Moderador')")
     public ResponseEntity<?> DeleteValoraciones(@PathVariable("IdValoracion") int IdValoracion) {
         Optional<Valoraciones> existente = ValoracionesService.GetValoracionById(IdValoracion);
 

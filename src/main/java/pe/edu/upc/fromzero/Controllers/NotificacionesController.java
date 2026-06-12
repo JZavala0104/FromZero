@@ -24,7 +24,7 @@ public class NotificacionesController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte', 'Invitado', 'Tester', 'Analista', 'Gerente', 'Consultor')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte', 'Invitado', 'Tester', 'Analista', 'Gerente', 'Consultor')")
     public ResponseEntity<?> GetNotificaciones() {
         ModelMapper m = new ModelMapper();
         List<NotificacionesDTO> listaDTO = NotificacionesService.GetNotificacion().stream()
@@ -38,7 +38,7 @@ public class NotificacionesController {
     }
 
     @PostMapping("/Post")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Moderador', 'Soporte')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Moderador', 'Soporte')")
     public ResponseEntity<?> PostNotificaciones(@RequestBody NotificacionesDTO dto) {
         if (dto.getIdUser() == 0 || dto.getFecha() == null || dto.getMensaje() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -54,7 +54,7 @@ public class NotificacionesController {
     }
 
     @PutMapping("/Put")
-    @PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte')")
+    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte')")
     public ResponseEntity<?> PutNotificaciones(@RequestBody NotificacionesDTO dto) {
         if (dto.getIdUser() == 0 || dto.getFecha() == null || dto.getMensaje() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -80,7 +80,7 @@ public class NotificacionesController {
     }
 
     @DeleteMapping("/Delete/{IdNotification}")
-    @PreAuthorize("hasAuthority('Administrador')")
+    //@PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> DeleteNotificaciones(@PathVariable("IdNotification") int IdNotification) {
         Optional<Notificaciones> existente = NotificacionesService.GetNotificacionById(IdNotification);
 

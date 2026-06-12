@@ -21,7 +21,7 @@ public class RolesController {
     private IRolesService RolesService;
     /*CRUD------------------------------------*/
     @GetMapping("/Get")
-    @PreAuthorize("hasAuthority('Administrador')")
+    //@PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> GetRoles(){
         ModelMapper m = new ModelMapper();
         List<RolesDTO> rolesDTO = RolesService.GetRol().stream().map(r -> m.map(r, RolesDTO.class)).collect(Collectors.toList());
@@ -31,7 +31,7 @@ public class RolesController {
         return ResponseEntity.ok(rolesDTO);
     }
     @PostMapping("/Post")
-    @PreAuthorize("hasAuthority('Administrador')")
+    //@PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> PostRoles(@RequestBody RolesDTO dto){
         if (dto.getNombre() == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre del rol no puede ser nulo");
@@ -46,7 +46,7 @@ public class RolesController {
         return ResponseEntity.status(HttpStatus.CREATED).body(rolDTO);
     }
     @PutMapping("/Put")
-    @PreAuthorize("hasAuthority('Administrador')")
+    //@PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> PutRoles(@RequestBody RolesDTO dto){
         if (dto.getNombre() == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre del rol no puede ser nulo");
@@ -64,7 +64,7 @@ public class RolesController {
         return ResponseEntity.ok("Rol actualizado");
     }
     @DeleteMapping("/Delete/{IdRol}")
-    @PreAuthorize("hasAuthority('Administrador')")
+    //@PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> DeleteRoles(@PathVariable("IdRol") int IdRol){
         Optional<Roles> rol = RolesService.GetRolById(IdRol);
         if (rol.isEmpty()){
