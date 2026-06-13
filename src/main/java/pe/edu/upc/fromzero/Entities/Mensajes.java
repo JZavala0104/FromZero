@@ -9,64 +9,65 @@ import java.time.LocalDateTime;
 public class Mensajes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdMensaje;
+    private int idMensaje;
     @ManyToOne
     @JoinColumn(name = "IdProyecto")
-    private Proyectos IdProyecto;
+    private Proyectos idProyecto;
     @ManyToOne
     @JoinColumn(name = "IdUser")
-    private Usuarios IdUser;
+    private Usuarios idUser;
     @Column(name = "Mensaje",nullable = false,columnDefinition = "TEXT")
-    private String Mensaje;
+    private String mensaje;
     @Column(name = "Fecha",nullable = false)
-    private LocalDateTime Fecha;
+    private LocalDateTime fecha;
     public Mensajes() {
     }
-    public Mensajes(int idMensaje, Proyectos idProyecto, Usuarios idUser, String content, LocalDateTime date) {
-        IdMensaje = idMensaje;
-        IdProyecto = idProyecto;
-        IdUser = idUser;
-        Mensaje = content;
-        Fecha = date;
+
+    public Mensajes(int idMensaje, Proyectos idProyecto, Usuarios idUser, String mensaje, LocalDateTime fecha) {
+        this.idMensaje = idMensaje;
+        this.idProyecto = idProyecto;
+        this.idUser = idUser;
+        this.mensaje = mensaje;
+        this.fecha = fecha;
     }
 
     public int getIdMensaje() {
-        return IdMensaje;
+        return idMensaje;
     }
 
     public void setIdMensaje(int idMensaje) {
-        IdMensaje = idMensaje;
+        this.idMensaje = idMensaje;
     }
 
     public Proyectos getIdProyecto() {
-        return IdProyecto;
+        return idProyecto;
     }
 
     public void setIdProyecto(Proyectos idProyecto) {
-        IdProyecto = idProyecto;
+        this.idProyecto = idProyecto;
     }
 
     public Usuarios getIdUser() {
-        return IdUser;
+        return idUser;
     }
 
     public void setIdUser(Usuarios idUser) {
-        IdUser = idUser;
+        this.idUser = idUser;
     }
 
     public String getMensaje() {
-        return Mensaje;
+        return mensaje;
     }
 
     public void setMensaje(String mensaje) {
-        Mensaje = mensaje;
+        this.mensaje = mensaje;
     }
 
     public LocalDateTime getFecha() {
-        return Fecha;
+        return fecha;
     }
 
     public void setFecha(LocalDateTime fecha) {
-        Fecha = fecha;
+        this.fecha = fecha;
     }
 }

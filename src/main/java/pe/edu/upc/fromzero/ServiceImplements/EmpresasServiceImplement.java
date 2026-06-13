@@ -15,7 +15,7 @@ public class EmpresasServiceImplement implements IEmpresasService {
 
     @Override
     public List<Empresas> GetEmpresa() {
-        return ESRepository.findAll();
+        return ESRepository.findAllByOrderByIdEmpresaAsc();
     }
 
     @Override

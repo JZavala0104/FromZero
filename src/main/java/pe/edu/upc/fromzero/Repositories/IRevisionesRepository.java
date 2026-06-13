@@ -19,4 +19,5 @@ public interface IRevisionesRepository extends JpaRepository<Revisiones, Integer
             "JOIN proyectos p ON t.id_proyecto = p.id_project " +
             "ORDER BY r.fecha DESC", nativeQuery = true)
     List<Object[]> getQuery6();
+    List<Revisiones> findAllByOrderByIdRevisionAsc();
 }

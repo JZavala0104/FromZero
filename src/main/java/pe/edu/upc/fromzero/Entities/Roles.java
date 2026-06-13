@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Roles implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdRol;
+    private int idRol;
     @Column(name = "Nombre",length = 50,nullable = false)
     private String Nombre;
 
@@ -17,16 +17,16 @@ public class Roles implements Serializable {
     }
 
     public Roles(int ID, String name) {
-        this.IdRol = ID;
+        this.idRol = ID;
         Nombre = name;
     }
 
     public int getIdRol() {
-        return IdRol;
+        return idRol;
     }
 
     public void setIdRol(int ID) {
-        this.IdRol = ID;
+        this.idRol = ID;
     }
 
     public String getNombre() {

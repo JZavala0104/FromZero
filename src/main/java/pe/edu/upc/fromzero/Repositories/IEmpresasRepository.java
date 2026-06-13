@@ -21,4 +21,5 @@ public interface IEmpresasRepository extends JpaRepository<Empresas, Integer> {
             "GROUP BY e.id_empresa, e.nombre_empresa\n" +
             "ORDER BY \"Inversion_Total\" DESC",nativeQuery = true)
     List<Object[]> getQuery1();
+    List<Empresas> findAllByOrderByIdEmpresaAsc();
 }

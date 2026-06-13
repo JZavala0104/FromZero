@@ -7,65 +7,65 @@ import jakarta.persistence.*;
 public class Desarrolladores {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdDesarrollador;
+    private int idDesarrollador;
     @ManyToOne
     @JoinColumn(name = "IdUser")
-    private Usuarios IdUser;
+    private Usuarios idUser;
     @Column(name = "Habilidades", nullable = false,columnDefinition = "TEXT")
-    private String Habilidades;
+    private String habilidades;
     @Column(name = "Experiencia",nullable = false)
-    private int Experiencia;
+    private int experiencia;
     @Column(name = "Portafolio",length = 255,nullable = false)
-    private String Portafolio;
+    private String portafolio;
 
     public Desarrolladores() {
     }
 
     public Desarrolladores(int idDesarrollador, Usuarios idUser, String habilidades, int experiencia, String portafolio) {
-        IdDesarrollador = idDesarrollador;
-        IdUser = idUser;
-        Habilidades = habilidades;
-        Experiencia = experiencia;
-        Portafolio = portafolio;
+        this.idDesarrollador = idDesarrollador;
+        this.idUser = idUser;
+        this.habilidades = habilidades;
+        this.experiencia = experiencia;
+        this.portafolio = portafolio;
     }
 
     public int getIdDesarrollador() {
-        return IdDesarrollador;
+        return idDesarrollador;
     }
 
     public void setIdDesarrollador(int idDesarrollador) {
-        IdDesarrollador = idDesarrollador;
+        this.idDesarrollador = idDesarrollador;
     }
 
     public Usuarios getIdUser() {
-        return IdUser;
+        return idUser;
     }
 
     public void setIdUser(Usuarios idUser) {
-        IdUser = idUser;
+        this.idUser = idUser;
     }
 
     public String getHabilidades() {
-        return Habilidades;
+        return habilidades;
     }
 
     public void setHabilidades(String habilidades) {
-        Habilidades = habilidades;
+        this.habilidades = habilidades;
     }
 
     public int getExperiencia() {
-        return Experiencia;
+        return experiencia;
     }
 
     public void setExperiencia(int experiencia) {
-        Experiencia = experiencia;
+        this.experiencia = experiencia;
     }
 
     public String getPortafolio() {
-        return Portafolio;
+        return portafolio;
     }
 
     public void setPortafolio(String portafolio) {
-        Portafolio = portafolio;
+        this.portafolio = portafolio;
     }
 }

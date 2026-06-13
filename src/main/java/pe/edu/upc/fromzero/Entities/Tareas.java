@@ -7,74 +7,75 @@ import jakarta.persistence.*;
 public class Tareas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdTarea;
+    private int idTarea;
     @ManyToOne
     @JoinColumn(name = "IdProyecto")
-    private Proyectos IdProyecto;
+    private Proyectos idProyecto;
     @Column(name = "Titulo",length = 150,nullable = false)
-    private String Titulo;
+    private String titulo;
     @Column(name = "Descripcion",nullable = false)
-    private String Descripcion;
+    private String descripcion;
     @Column(name = "FechaLimite",nullable = false)
-    private String FechaLimite;
+    private String fechaLimite;
     @Column(name = "Estado",length = 50,nullable = false)
-    private String Estado;
+    private String estado;
     public Tareas() {
     }
-    public Tareas(int idTarea, Proyectos idProyecto, String title, String description, String deadline, String status) {
-        IdTarea = idTarea;
-        IdProyecto = idProyecto;
-        Titulo = title;
-        Descripcion = description;
-        FechaLimite = deadline;
-        Estado = status;
+
+    public Tareas(int idTarea, Proyectos idProyecto, String titulo, String descripcion, String fechaLimite, String estado) {
+        this.idTarea = idTarea;
+        this.idProyecto = idProyecto;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.fechaLimite = fechaLimite;
+        this.estado = estado;
     }
 
     public int getIdTarea() {
-        return IdTarea;
+        return idTarea;
     }
 
     public void setIdTarea(int idTarea) {
-        IdTarea = idTarea;
+        this.idTarea = idTarea;
     }
 
     public Proyectos getIdProyecto() {
-        return IdProyecto;
+        return idProyecto;
     }
 
     public void setIdProyecto(Proyectos idProyecto) {
-        IdProyecto = idProyecto;
+        this.idProyecto = idProyecto;
     }
 
     public String getTitulo() {
-        return Titulo;
+        return titulo;
     }
 
     public void setTitulo(String titulo) {
-        Titulo = titulo;
+        this.titulo = titulo;
     }
 
     public String getDescripcion() {
-        return Descripcion;
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
+        this.descripcion = descripcion;
     }
 
     public String getFechaLimite() {
-        return FechaLimite;
+        return fechaLimite;
     }
 
     public void setFechaLimite(String fechaLimite) {
-        FechaLimite = fechaLimite;
+        this.fechaLimite = fechaLimite;
     }
 
     public String getEstado() {
-        return Estado;
+        return estado;
     }
 
     public void setEstado(String estado) {
-        Estado = estado;
+        this.estado = estado;
     }
 }

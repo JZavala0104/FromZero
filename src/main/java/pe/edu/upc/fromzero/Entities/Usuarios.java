@@ -11,43 +11,43 @@ import java.time.LocalDateTime;
 public class Usuarios implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdUser;
+    private int idUser;
     @Column(name = "Username",length = 20,nullable = false)
     private String username;
     @Column(name = "Nombre",length = 100,nullable = false)
-    private String Nombre;
+    private String nombre;
     @Column(name = "Email",length = 100,nullable = false)
-    private String Email;
+    private String email;
     @Column(name = "Password",length = 255,nullable = false)
-    private String Password;
+    private String password;
     @Column(name = "FechaRegistro",nullable = false)
-    private LocalDateTime FechaRegistro;
+    private LocalDateTime fechaRegistro;
     @Column(name = "Habilitado",nullable = false)
-    private boolean Habilitado;
+    private boolean habilitado;
     @ManyToOne
     @JoinColumn(name = "IdRol")
-    private Roles IdRol;
+    private Roles idRol;
 
     public Usuarios() {
     }
 
-    public Usuarios(int idUser, String Username, String nombre, String email, String password, LocalDateTime fechaRegistro, boolean habilitado, Roles idRol) {
-        IdUser = idUser;
-        username = Username;
-        Nombre = nombre;
-        Email = email;
-        Password = password;
-        FechaRegistro = fechaRegistro;
-        Habilitado = habilitado;
-        IdRol = idRol;
+    public Usuarios(int idUser, String username, String nombre, String email, String password, LocalDateTime fechaRegistro, boolean habilitado, Roles idRol) {
+        this.idUser = idUser;
+        this.username = username;
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+        this.fechaRegistro = fechaRegistro;
+        this.habilitado = habilitado;
+        this.idRol = idRol;
     }
 
     public int getIdUser() {
-        return IdUser;
+        return idUser;
     }
 
     public void setIdUser(int idUser) {
-        IdUser = idUser;
+        this.idUser = idUser;
     }
 
     public String getUsername() {
@@ -59,51 +59,50 @@ public class Usuarios implements Serializable {
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
-    public void setNombre(String name) {
-        Nombre = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public LocalDateTime getFechaRegistro() {
-        return FechaRegistro;
+        return fechaRegistro;
     }
 
-    public void setFechaRegistro(LocalDateTime registerDate) {
-        FechaRegistro = registerDate;
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public boolean isHabilitado() {
-        return Habilitado;
+        return habilitado;
     }
 
     public void setHabilitado(boolean habilitado) {
-        Habilitado = habilitado;
+        this.habilitado = habilitado;
     }
 
     public Roles getIdRol() {
-        return IdRol;
+        return idRol;
     }
 
     public void setIdRol(Roles idRol) {
-        IdRol = idRol;
+        this.idRol = idRol;
     }
-
 }

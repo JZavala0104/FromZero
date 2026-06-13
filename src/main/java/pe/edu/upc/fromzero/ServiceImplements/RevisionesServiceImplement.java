@@ -16,7 +16,7 @@ public class RevisionesServiceImplement implements IRevisionesService {
 
     @Override
     public List<Revisiones> GetRevision() {
-        return revisionesRepository.findAll();
+        return revisionesRepository.findAllByOrderByIdRevisionAsc();
     }
 
     @Override

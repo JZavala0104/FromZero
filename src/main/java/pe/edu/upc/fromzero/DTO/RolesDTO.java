@@ -1,15 +1,15 @@
 package pe.edu.upc.fromzero.DTO;
 
 public class RolesDTO {
-    private int IdRol;
+    private int idRol;
     private String nombre;
 
     public int getIdRol() {
-        return IdRol;
+        return idRol;
     }
 
     public void setIdRol(int idRol) {
-        IdRol = idRol;
+        this.idRol = idRol;
     }
 
     public String getNombre() {

@@ -16,7 +16,7 @@ public class ProyectoDesarrolladorServiceImplement implements IProyectoDesarroll
 
     @Override
     public List<ProyectoDesarrollador> GetProyectoDesarrollador() {
-        return PDRepository.findAll();
+        return PDRepository.findAllByOrderByIdProyDesarAsc();
     }
 
     @Override

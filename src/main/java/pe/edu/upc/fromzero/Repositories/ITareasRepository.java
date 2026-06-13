@@ -13,5 +13,5 @@ public interface ITareasRepository extends JpaRepository<Tareas, Integer> {
             "FROM tareas t " +
             "GROUP BY t.estado", nativeQuery = true)
     List<Object[]> GetQuery4();
-
+    List<Tareas> findAllByOrderByIdTareaAsc();
 }

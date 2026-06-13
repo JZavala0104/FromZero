@@ -7,44 +7,44 @@ import jakarta.persistence.*;
 public class ProyectoDesarrollador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdProyDesar;
+    private int idProyDesar;
     @ManyToOne
     @JoinColumn(name = "IdProyecto")
-    private Proyectos IdProyecto;
+    private Proyectos idProyecto;
     @ManyToOne
     @JoinColumn(name = "IdDesarrollador")
-    private Desarrolladores IdDesarrollador;
+    private Desarrolladores idDesarrollador;
 
     public ProyectoDesarrollador() {
     }
 
     public ProyectoDesarrollador(int idProyDesar, Proyectos idProyecto, Desarrolladores idDesarrollador) {
-        IdProyDesar = idProyDesar;
-        IdProyecto = idProyecto;
-        IdDesarrollador = idDesarrollador;
+        this.idProyDesar = idProyDesar;
+        this.idProyecto = idProyecto;
+        this.idDesarrollador = idDesarrollador;
     }
 
     public int getIdProyDesar() {
-        return IdProyDesar;
+        return idProyDesar;
     }
 
     public void setIdProyDesar(int idProyDesar) {
-        IdProyDesar = idProyDesar;
+        this.idProyDesar = idProyDesar;
     }
 
     public Proyectos getIdProyecto() {
-        return IdProyecto;
+        return idProyecto;
     }
 
     public void setIdProyecto(Proyectos idProyecto) {
-        IdProyecto = idProyecto;
+        this.idProyecto = idProyecto;
     }
 
     public Desarrolladores getIdDesarrollador() {
-        return IdDesarrollador;
+        return idDesarrollador;
     }
 
     public void setIdDesarrollador(Desarrolladores idDesarrollador) {
-        IdDesarrollador = idDesarrollador;
+        this.idDesarrollador = idDesarrollador;
     }
 }

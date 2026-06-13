@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import pe.edu.upc.fromzero.Entities.Usuarios;
 import pe.edu.upc.fromzero.Repositories.IUsuariosRepository;
 import pe.edu.upc.fromzero.ServiceInterface.IUsuariosService;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,18 +20,25 @@ public class UsuariosServiceImplement implements IUsuariosService, UserDetailsSe
     @Autowired
     private IUsuariosRepository usuariosRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public List<Usuarios> GetUsuario() {
-        return usuariosRepository.findAll();
+        return usuariosRepository.findAllByOrderByIdUserAsc();
     }
 
     @Override
     public Usuarios InsertUsuario(Usuarios usuario) {
+        String passwordEncriptado = passwordEncoder.encode(usuario.getPassword());
+        usuario.setPassword(passwordEncriptado);
         return usuariosRepository.save(usuario);
     }
 
     @Override
     public void UpdateUsuario(Usuarios usuario) {
+        String passwordEncriptado = passwordEncoder.encode(usuario.getPassword());
+        usuario.setPassword(passwordEncriptado);
         usuariosRepository.save(usuario);
     }
 

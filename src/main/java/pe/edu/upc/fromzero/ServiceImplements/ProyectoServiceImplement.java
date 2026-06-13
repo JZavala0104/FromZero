@@ -16,7 +16,7 @@ public class ProyectoServiceImplement implements IProyectosService {
 
     @Override
     public List<Proyectos> GetProyecto() {
-        return ProyectosRepository.findAll();
+        return ProyectosRepository.findAllByOrderByIdProjectAsc();
     }
 
     @Override

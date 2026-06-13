@@ -10,76 +10,76 @@ import java.time.LocalDateTime;
 public class CodigoGenerado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdCode;
+    private int idCode;
     @ManyToOne
     @JoinColumn(name = "IdUser")
-    private Usuarios IdUser;
+    private Usuarios idUser;
     @Column(name = "Prompt",nullable = false,columnDefinition = "TEXT")
-    private String Prompt;
+    private String prompt;
     @Column(name = "Codigo",nullable = false,columnDefinition = "TEXT")
-    private String Codigo;
+    private String codigo;
     @Column(name = "Lenguaje",length = 50,nullable = false)
-    private String Lenguaje;
+    private String lenguaje;
     @Column(name = "Fecha",nullable = false)
-    private LocalDateTime Fecha;
+    private LocalDateTime fecha;
 
     public CodigoGenerado() {
     }
 
-    public CodigoGenerado(LocalDateTime fecha, String lenguaje, String codigo, String prompt, Usuarios idUser, int idCode) {
-        Fecha = fecha;
-        Lenguaje = lenguaje;
-        Codigo = codigo;
-        Prompt = prompt;
-        IdUser = idUser;
-        IdCode = idCode;
+    public CodigoGenerado(int idCode, Usuarios idUser, String prompt, String codigo, String lenguaje, LocalDateTime fecha) {
+        this.idCode = idCode;
+        this.idUser = idUser;
+        this.prompt = prompt;
+        this.codigo = codigo;
+        this.lenguaje = lenguaje;
+        this.fecha = fecha;
     }
 
     public int getIdCode() {
-        return IdCode;
+        return idCode;
     }
 
     public void setIdCode(int idCode) {
-        IdCode = idCode;
+        this.idCode = idCode;
     }
 
     public Usuarios getIdUser() {
-        return IdUser;
+        return idUser;
     }
 
     public void setIdUser(Usuarios idUser) {
-        IdUser = idUser;
+        this.idUser = idUser;
     }
 
     public String getPrompt() {
-        return Prompt;
+        return prompt;
     }
 
     public void setPrompt(String prompt) {
-        Prompt = prompt;
+        this.prompt = prompt;
     }
 
     public String getCodigo() {
-        return Codigo;
+        return codigo;
     }
 
-    public void setCodigo(String code) {
-        Codigo = code;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getLenguaje() {
-        return Lenguaje;
+        return lenguaje;
     }
 
-    public void setLenguaje(String language) {
-        Lenguaje = language;
+    public void setLenguaje(String lenguaje) {
+        this.lenguaje = lenguaje;
     }
 
     public LocalDateTime getFecha() {
-        return Fecha;
+        return fecha;
     }
 
-    public void setFecha(LocalDateTime date) {
-        Fecha = date;
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 }

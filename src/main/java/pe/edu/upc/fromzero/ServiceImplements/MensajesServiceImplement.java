@@ -15,7 +15,7 @@ public class MensajesServiceImplement implements IMensajesService {
 
     @Override
     public List<Mensajes> GetMensaje() {
-        return MSRepository.findAll();
+        return MSRepository.findAllByOrderByIdMensajeAsc();
     }
 
     @Override

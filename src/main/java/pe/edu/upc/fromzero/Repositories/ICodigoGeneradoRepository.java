@@ -15,4 +15,5 @@ public interface ICodigoGeneradoRepository extends JpaRepository<CodigoGenerado,
             "GROUP BY u.username, cg.lenguaje " +
             "ORDER BY total_generaciones DESC", nativeQuery = true)
     List<Object[]> getQuery9();
+    List<CodigoGenerado> findAllByOrderByIdCodeAsc();
 }

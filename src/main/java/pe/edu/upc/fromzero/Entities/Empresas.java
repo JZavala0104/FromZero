@@ -7,54 +7,54 @@ import jakarta.persistence.*;
 public class Empresas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdEmpresa;
+    private int idEmpresa;
     @ManyToOne
     @JoinColumn(name = "IdUser")
-    private Usuarios IdUser;
+    private Usuarios idUser;
     @Column(name = "NombreEmpresa",length = 150,nullable = false)
-    private String NombreEmpresa;
+    private String nombreEmpresa;
     @Column(name = "Descripcion",nullable = false,columnDefinition = "TEXT")
-    private String Descripcion;
+    private String descripcion;
 
     public Empresas() {
     }
 
-    public Empresas(int idCompany, Usuarios idUser, String name, String description) {
-        IdEmpresa = idCompany;
-        IdUser = idUser;
-        NombreEmpresa = name;
-        Descripcion = description;
+    public Empresas(int idEmpresa, Usuarios idUser, String nombreEmpresa, String descripcion) {
+        this.idEmpresa = idEmpresa;
+        this.idUser = idUser;
+        this.nombreEmpresa = nombreEmpresa;
+        this.descripcion = descripcion;
     }
 
     public int getIdEmpresa() {
-        return IdEmpresa;
+        return idEmpresa;
     }
 
-    public void setIdEmpresa(int idCompany) {
-        IdEmpresa = idCompany;
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     public Usuarios getIdUser() {
-        return IdUser;
+        return idUser;
     }
 
     public void setIdUser(Usuarios idUser) {
-        IdUser = idUser;
+        this.idUser = idUser;
     }
 
     public String getNombreEmpresa() {
-        return NombreEmpresa;
+        return nombreEmpresa;
     }
 
-    public void setNombreEmpresa(String name) {
-        NombreEmpresa = name;
+    public void setNombreEmpresa(String nombreEmpresa) {
+        this.nombreEmpresa = nombreEmpresa;
     }
 
     public String getDescripcion() {
-        return Descripcion;
+        return descripcion;
     }
 
-    public void setDescripcion(String description) {
-        Descripcion = description;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

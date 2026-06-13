@@ -14,4 +14,5 @@ public interface ITipsIARepository extends JpaRepository<TipsIA, Integer> {
             "JOIN proyectos p ON t.proyecto_id = p.id_proyecto " +
             "GROUP BY p.titulo", nativeQuery = true)
     List<Object[]> GetQuery8();
+    List<TipsIA> findAllByOrderByIdTipAsc();
 }

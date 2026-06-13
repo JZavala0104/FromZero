@@ -10,98 +10,98 @@ import java.time.LocalDateTime;
 public class Proyectos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdProject;
+    private int idProject;
     @ManyToOne
     @JoinColumn(name = "IdEmpresa")
-    private Empresas IdEmpresa;
+    private Empresas idEmpresa;
     @Column(name = "Titulo",length = 150,nullable = false)
-    private String Titulo;
+    private String titulo;
     @Column(name = "Descripcion",nullable = false)
-    private String Descripcion;
+    private String descripcion;
     @Column(name = "Presupuesto",nullable = false)
-    private double Presupuesto;
+    private double presupuesto;
     @Column(name = "Estado",length = 50,nullable = false)
-    private String Estado;
+    private String estado;
     @Column(name = "FechaInicio",nullable = false)
-    private LocalDateTime FechaInicio;
+    private LocalDateTime fechaInicio;
     @Column(name = "FechaFin",nullable = false)
-    private LocalDateTime FechaFin;
+    private LocalDateTime fechaFin;
 
     public Proyectos() {
     }
 
-    public Proyectos(int idProject, Empresas idCompany, String name, String description, double budget, String status, LocalDateTime startDate, LocalDateTime endDate) {
-        IdProject = idProject;
-        IdEmpresa = idCompany;
-        Titulo = name;
-        Descripcion = description;
-        Presupuesto = budget;
-        Estado = status;
-        FechaInicio = startDate;
-        FechaFin = endDate;
+    public Proyectos(int idProject, Empresas idEmpresa, String titulo, String descripcion, double presupuesto, String estado, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        this.idProject = idProject;
+        this.idEmpresa = idEmpresa;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.presupuesto = presupuesto;
+        this.estado = estado;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
     }
 
     public int getIdProject() {
-        return IdProject;
+        return idProject;
     }
 
     public void setIdProject(int idProject) {
-        IdProject = idProject;
+        this.idProject = idProject;
     }
 
     public Empresas getIdEmpresa() {
-        return IdEmpresa;
+        return idEmpresa;
     }
 
-    public void setIdEmpresa(Empresas idCompany) {
-        IdEmpresa = idCompany;
+    public void setIdEmpresa(Empresas idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     public String getTitulo() {
-        return Titulo;
+        return titulo;
     }
 
-    public void setTitulo(String name) {
-        Titulo = name;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getDescripcion() {
-        return Descripcion;
+        return descripcion;
     }
 
-    public void setDescripcion(String description) {
-        Descripcion = description;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public double getPresupuesto() {
-        return Presupuesto;
+        return presupuesto;
     }
 
-    public void setPresupuesto(double budget) {
-        Presupuesto = budget;
+    public void setPresupuesto(double presupuesto) {
+        this.presupuesto = presupuesto;
     }
 
     public String getEstado() {
-        return Estado;
+        return estado;
     }
 
-    public void setEstado(String status) {
-        Estado = status;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public LocalDateTime getFechaInicio() {
-        return FechaInicio;
+        return fechaInicio;
     }
 
-    public void setFechaInicio(LocalDateTime startDate) {
-        FechaInicio = startDate;
+    public void setFechaInicio(LocalDateTime fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
     public LocalDateTime getFechaFin() {
-        return FechaFin;
+        return fechaFin;
     }
 
-    public void setFechaFin(LocalDateTime endDate) {
-        FechaFin = endDate;
+    public void setFechaFin(LocalDateTime fechaFin) {
+        this.fechaFin = fechaFin;
     }
 }
