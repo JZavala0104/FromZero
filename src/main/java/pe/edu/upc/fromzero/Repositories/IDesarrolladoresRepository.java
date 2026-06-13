@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pe.edu.upc.fromzero.Entities.Desarrolladores;
+
 import java.util.List;
 
 @Repository
@@ -23,5 +24,6 @@ public interface IDesarrolladoresRepository extends JpaRepository<Desarrolladore
             "GROUP BY u.id_user, u.nombre, d.experiencia, d.habilidades\n" +
             "ORDER BY \"Reputacion_Promedio\" DESC, d.experiencia DESC", nativeQuery = true)
     List<Object[]> getQuery2();
+    List<Desarrolladores> findAllByOrderByIdDesarrolladorAsc();
 }
 

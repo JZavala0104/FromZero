@@ -16,7 +16,7 @@ public class CodigoGeneradoServiceImplement implements ICodigoGeneradoService {
 
     @Override
     public List<CodigoGenerado> GetCodigoGenerado() {
-        return CGRepository.findAll();
+        return CGRepository.findAllByOrderByIdCodeAsc();
     }
 
     @Override

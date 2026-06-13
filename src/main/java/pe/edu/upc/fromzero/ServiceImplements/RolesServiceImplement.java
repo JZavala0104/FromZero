@@ -1,6 +1,7 @@
 package pe.edu.upc.fromzero.ServiceImplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.fromzero.Entities.Roles;
 import pe.edu.upc.fromzero.Repositories.IRolesRepository;
@@ -16,7 +17,7 @@ public class RolesServiceImplement implements IRolesService {
 
     @Override
     public List<Roles> GetRol() {
-        return rolesRepository.findAll();
+        return rolesRepository.findAllByOrderByIdRolAsc();
     }
 
     @Override

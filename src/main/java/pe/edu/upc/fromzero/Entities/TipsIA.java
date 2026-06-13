@@ -9,53 +9,53 @@ import java.time.LocalDate;
 public class TipsIA {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdTip;
+    private int idTip;
     @ManyToOne
     @JoinColumn(name = "IdUser")
-    private Usuarios IdUser;
+    private Usuarios idUser;
     @Column(name = "Contenido",nullable = false,columnDefinition = "TEXT")
-    private String Contenido;
+    private String contenido;
     @Column(name = "Fecha", nullable = false)
-    private LocalDate Fecha;
+    private LocalDate fecha;
     public TipsIA() {
     }
 
-    public TipsIA(int idTip, Usuarios idUser, String content, LocalDate date) {
-        IdTip = idTip;
-        IdUser = idUser;
-        Contenido = content;
-        Fecha = date;
+    public TipsIA(int idTip, Usuarios idUser, String contenido, LocalDate fecha) {
+        this.idTip = idTip;
+        this.idUser = idUser;
+        this.contenido = contenido;
+        this.fecha = fecha;
     }
 
     public int getIdTip() {
-        return IdTip;
+        return idTip;
     }
 
     public void setIdTip(int idTip) {
-        IdTip = idTip;
+        this.idTip = idTip;
     }
 
     public Usuarios getIdUser() {
-        return IdUser;
+        return idUser;
     }
 
     public void setIdUser(Usuarios idUser) {
-        IdUser = idUser;
+        this.idUser = idUser;
     }
 
     public String getContenido() {
-        return Contenido;
+        return contenido;
     }
 
-    public void setContenido(String content) {
-        Contenido = content;
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
     }
 
     public LocalDate getFecha() {
-        return Fecha;
+        return fecha;
     }
 
-    public void setFecha(LocalDate date) {
-        Fecha = date;
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 }

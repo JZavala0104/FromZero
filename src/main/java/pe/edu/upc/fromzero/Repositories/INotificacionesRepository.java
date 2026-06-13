@@ -17,5 +17,6 @@ public interface INotificacionesRepository extends JpaRepository<Notificaciones,
             "WHERE n.leido = false " +
             "ORDER BY n.fecha DESC", nativeQuery = true)
     List<Object[]> getQuery5();
+    List<Notificaciones> findAllByOrderByIdNotificationAsc();
 }
 

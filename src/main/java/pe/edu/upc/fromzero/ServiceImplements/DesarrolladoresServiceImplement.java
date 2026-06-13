@@ -16,7 +16,7 @@ public class DesarrolladoresServiceImplement implements IDesarrolladoresService 
 
     @Override
     public List<Desarrolladores> GetDesarrollador() {
-        return DSRepository.findAll();
+        return DSRepository.findAllByOrderByIdDesarrolladorAsc();
     }
 
     @Override

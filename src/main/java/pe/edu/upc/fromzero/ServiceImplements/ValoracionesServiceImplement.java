@@ -16,7 +16,7 @@ public class ValoracionesServiceImplement implements IValoracionesService {
 
     @Override
     public List<Valoraciones> GetValoracion() {
-        return valoracionesRepository.findAll();
+        return valoracionesRepository.findAllByOrderByIdValoracionAsc();
     }
 
     @Override

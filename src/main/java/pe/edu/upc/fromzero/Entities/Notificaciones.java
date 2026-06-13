@@ -9,65 +9,65 @@ import java.time.LocalDateTime;
 public class Notificaciones {
     @Id
     @GeneratedValue
-    private int IdNotification;
+    private int idNotification;
     @ManyToOne
     @JoinColumn(name = "IdUser")
-    private Usuarios IdUser;
+    private Usuarios idUser;
     @Column(name = "Mensaje",nullable = false,columnDefinition = "TEXT")
-    private String Mensaje;
+    private String mensaje;
     @Column(name = "Leido",nullable = false)
-    private boolean Leido;
+    private boolean leido;
     @Column(name = "Fecha",nullable = false)
-    private LocalDateTime Fecha;
+    private LocalDateTime fecha;
 
     public Notificaciones() {
     }
 
-    public Notificaciones(int idNotification, Usuarios idUser, String content, boolean read, LocalDateTime date) {
-        IdNotification = idNotification;
-        IdUser = idUser;
-        Mensaje = content;
-        Leido = read;
-        Fecha = date;
+    public Notificaciones(int idNotification, Usuarios idUser, String mensaje, boolean leido, LocalDateTime fecha) {
+        this.idNotification = idNotification;
+        this.idUser = idUser;
+        this.mensaje = mensaje;
+        this.leido = leido;
+        this.fecha = fecha;
     }
 
     public int getIdNotification() {
-        return IdNotification;
+        return idNotification;
     }
 
     public void setIdNotification(int idNotification) {
-        IdNotification = idNotification;
+        this.idNotification = idNotification;
     }
 
     public Usuarios getIdUser() {
-        return IdUser;
+        return idUser;
     }
 
     public void setIdUser(Usuarios idUser) {
-        IdUser = idUser;
+        this.idUser = idUser;
     }
 
     public String getMensaje() {
-        return Mensaje;
+        return mensaje;
     }
 
-    public void setMensaje(String content) {
-        Mensaje = content;
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
     public boolean isLeido() {
-        return Leido;
+        return leido;
     }
 
-    public void setLeido(boolean read) {
-        Leido = read;
+    public void setLeido(boolean leido) {
+        this.leido = leido;
     }
 
     public LocalDateTime getFecha() {
-        return Fecha;
+        return fecha;
     }
 
-    public void setFecha(LocalDateTime date) {
-        Fecha = date;
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 }

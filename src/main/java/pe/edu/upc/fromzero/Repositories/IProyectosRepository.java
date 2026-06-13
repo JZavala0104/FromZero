@@ -30,5 +30,6 @@ public interface IProyectosRepository extends JpaRepository<Proyectos, Integer> 
             "GROUP BY p.titulo, e.nombre_empresa, p.fecha_fin, p.estado " +
             "ORDER BY p.fecha_fin ASC", nativeQuery = true)
     List<Object[]> getQuery10();
+    List<Proyectos> findAllByOrderByIdProjectAsc();
 }
 

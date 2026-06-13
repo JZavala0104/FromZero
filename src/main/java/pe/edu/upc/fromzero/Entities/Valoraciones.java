@@ -7,54 +7,54 @@ import jakarta.persistence.*;
 public class Valoraciones {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdValoracion;
+    private int idValoracion;
     @ManyToOne
     @JoinColumn(name = "IdProyecto")
-    private Proyectos IdProyecto;
+    private Proyectos idProyecto;
     @Column(name = "Puntuacion",nullable = false)
-    private double Puntuacion;
+    private double puntuacion;
     @Column(name = "Comentario",nullable = false,columnDefinition = "TEXT")
-    private String Comentario;
+    private String comentario;
 
     public Valoraciones() {
     }
 
     public Valoraciones(int idValoracion, Proyectos idProyecto, double puntuacion, String comentario) {
-        IdValoracion = idValoracion;
-        IdProyecto = idProyecto;
-        Puntuacion = puntuacion;
-        Comentario = comentario;
+        this.idValoracion = idValoracion;
+        this.idProyecto = idProyecto;
+        this.puntuacion = puntuacion;
+        this.comentario = comentario;
     }
 
     public int getIdValoracion() {
-        return IdValoracion;
+        return idValoracion;
     }
 
     public void setIdValoracion(int idValoracion) {
-        IdValoracion = idValoracion;
+        this.idValoracion = idValoracion;
     }
 
     public Proyectos getIdProyecto() {
-        return IdProyecto;
+        return idProyecto;
     }
 
     public void setIdProyecto(Proyectos idProyecto) {
-        IdProyecto = idProyecto;
+        this.idProyecto = idProyecto;
     }
 
     public double getPuntuacion() {
-        return Puntuacion;
+        return puntuacion;
     }
 
     public void setPuntuacion(double puntuacion) {
-        Puntuacion = puntuacion;
+        this.puntuacion = puntuacion;
     }
 
     public String getComentario() {
-        return Comentario;
+        return comentario;
     }
 
     public void setComentario(String comentario) {
-        Comentario = comentario;
+        this.comentario = comentario;
     }
 }

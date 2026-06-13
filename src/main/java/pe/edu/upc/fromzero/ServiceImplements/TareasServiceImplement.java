@@ -16,7 +16,7 @@ public class TareasServiceImplement implements ITareasService {
 
     @Override
     public List<Tareas> GetTarea() {
-        return tareasRepository.findAll();
+        return tareasRepository.findAllByOrderByIdTareaAsc();
     }
 
     @Override

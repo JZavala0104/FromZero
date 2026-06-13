@@ -10,63 +10,64 @@ import java.time.LocalDateTime;
 public class Revisiones {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdRevision;
+    private int idRevision;
     @ManyToOne
     @JoinColumn(name = "IdTarea")
-    private Tareas IdTarea;
+    private Tareas idTarea;
     @Column(name = "Comentar",nullable = false,columnDefinition = "TEXT")
-    private String Comentar;
+    private String comentar;
     @Column(name = "Estado",length = 50,nullable = false)
-    private String Estado;
+    private String estado;
     @Column(name = "Fecha",nullable = false)
-    private LocalDateTime Fecha;
+    private LocalDateTime fecha;
     public Revisiones() {
     }
-    public Revisiones(int idRevision, Tareas idTarea, String comment, String status, LocalDateTime date) {
-        IdRevision = idRevision;
-        IdTarea = idTarea;
-        Comentar = comment;
-        Estado = status;
-        Fecha = date;
+
+    public Revisiones(int idRevision, Tareas idTarea, String comentar, String estado, LocalDateTime fecha) {
+        this.idRevision = idRevision;
+        this.idTarea = idTarea;
+        this.comentar = comentar;
+        this.estado = estado;
+        this.fecha = fecha;
     }
 
     public int getIdRevision() {
-        return IdRevision;
+        return idRevision;
     }
 
     public void setIdRevision(int idRevision) {
-        IdRevision = idRevision;
+        this.idRevision = idRevision;
     }
 
     public Tareas getIdTarea() {
-        return IdTarea;
+        return idTarea;
     }
 
     public void setIdTarea(Tareas idTarea) {
-        IdTarea = idTarea;
+        this.idTarea = idTarea;
     }
 
     public String getComentar() {
-        return Comentar;
+        return comentar;
     }
 
     public void setComentar(String comentar) {
-        Comentar = comentar;
+        this.comentar = comentar;
     }
 
     public String getEstado() {
-        return Estado;
+        return estado;
     }
 
     public void setEstado(String estado) {
-        Estado = estado;
+        this.estado = estado;
     }
 
     public LocalDateTime getFecha() {
-        return Fecha;
+        return fecha;
     }
 
     public void setFecha(LocalDateTime fecha) {
-        Fecha = fecha;
+        this.fecha = fecha;
     }
 }

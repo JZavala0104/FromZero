@@ -15,7 +15,7 @@ public class NotificacionesServiceImplement implements INotificacionesService {
 
     @Override
     public List<Notificaciones> GetNotificacion() {
-        return NSRepository.findAll();
+        return NSRepository.findAllByOrderByIdNotificationAsc();
     }
 
     @Override

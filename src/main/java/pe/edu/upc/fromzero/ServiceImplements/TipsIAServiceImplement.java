@@ -16,7 +16,7 @@ public class TipsIAServiceImplement implements ITipsIAService {
 
     @Override
     public List<TipsIA> GetTipsIA() {
-        return tipsIARepository.findAll();
+        return tipsIARepository.findAllByOrderByIdTipAsc();
     }
 
     @Override
