@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.UsuariosDTO;
 import pe.edu.upc.fromzero.DTO.UsuariosGetDTO;
 import pe.edu.upc.fromzero.Entities.Usuarios;
+import pe.edu.upc.fromzero.ServiceInterface.IRolesService;
 import pe.edu.upc.fromzero.ServiceInterface.IUsuariosService;
 
 import java.util.Optional;
@@ -21,6 +22,8 @@ public class UsuariosController {
 
     @Autowired
     private IUsuariosService UsuariosService;
+    @Autowired
+    private IRolesService RolesService;
 
     /*CRUD------------------------------------*/
 
@@ -82,12 +85,12 @@ public class UsuariosController {
 
         ModelMapper m = new ModelMapper();
         Usuarios u = usuarioExistente.get();
-
+        u.setUsername(dto.getUsername());
         u.setNombre(dto.getNombre());
         u.setEmail(dto.getEmail());
         u.setPassword(dto.getPassword());
         u.setFechaRegistro(dto.getFechaRegistro());
-
+        u.setIdRol(RolesService.GetRolById(dto.getIdRol()).get());
         UsuariosService.UpdateUsuario(u);
         return ResponseEntity.ok("Usuario actualizado");
     }
