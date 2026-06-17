@@ -3,28 +3,28 @@ package pe.edu.upc.fromzero.DTO;
 import java.time.LocalDateTime;
 
 public class UsuariosGetDTO {
-    private int IdUser;
-    private String Username;
+    private int idUser;
+    private String username;
     private String nombre;
     private String email;
     private LocalDateTime fechaRegistro;
-    private boolean Habilitado;
+    private boolean habilitado;
     private int idRol;
 
     public int getIdUser() {
-        return IdUser;
+        return idUser;
     }
 
     public void setIdUser(int idUser) {
-        IdUser = idUser;
+        this.idUser = idUser;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
     }
 
     public String getNombre() {
@@ -52,11 +52,11 @@ public class UsuariosGetDTO {
     }
 
     public boolean isHabilitado() {
-        return Habilitado;
+        return habilitado;
     }
 
     public void setHabilitado(boolean habilitado) {
-        Habilitado = habilitado;
+        this.habilitado = habilitado;
     }
 
     public int getIdRol() {
