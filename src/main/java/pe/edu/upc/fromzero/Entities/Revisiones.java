@@ -50,7 +50,7 @@ public class Revisiones {
     public String getComentar() {
         return Comentar;
     }
-
+    //prueba2
     public void setComentar(String comentar) {
         Comentar = comentar;
     }
