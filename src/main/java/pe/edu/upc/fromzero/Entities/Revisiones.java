@@ -51,7 +51,7 @@ public class Revisiones {
     public String getComentar() {
         return comentar;
     }
-
+    //prueba2
     public void setComentar(String comentar) {
         this.comentar = comentar;
     }
