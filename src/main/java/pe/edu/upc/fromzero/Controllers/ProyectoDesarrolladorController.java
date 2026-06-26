@@ -8,6 +8,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.ProyectoDesarrolladorDTO;
 import pe.edu.upc.fromzero.Entities.ProyectoDesarrollador;
+import pe.edu.upc.fromzero.Entities.Proyectos;
+import pe.edu.upc.fromzero.Entities.Desarrolladores;
 import pe.edu.upc.fromzero.ServiceInterface.IProyectoDesarrolladorService;
 
 import java.util.Optional;
@@ -26,25 +28,30 @@ public class ProyectoDesarrolladorController {
     @GetMapping("/Get")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Gerente', 'Analista', 'Moderador', 'Soporte')")
     public ResponseEntity<?> GetProyectoDesarrollador() {
-        ModelMapper m = new ModelMapper();
         List<ProyectoDesarrolladorDTO> listaDTO = ProyectoDesarrolladorService.GetProyectoDesarrollador().stream()
-                .map(pd -> m.map(pd, ProyectoDesarrolladorDTO.class))
+                .map(pd -> {
+                    ProyectoDesarrolladorDTO dto = new ProyectoDesarrolladorDTO();
+                    dto.setIdProyDesar(pd.getIdProyDesar());
+                    dto.setIdProyecto(pd.getIdProyecto() != null ? pd.getIdProyecto().getIdProject() : 0);
+                    dto.setIdDesarrollador(pd.getIdDesarrollador() != null ? pd.getIdDesarrollador().getIdDesarrollador() : 0);
+                    return dto;
+                })
                 .collect(Collectors.toList());
 
-        if (listaDTO.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay asignaciones de proyectos a desarrolladores");
-        }
         return ResponseEntity.ok(listaDTO);
     }
 
     @GetMapping("/Get/{id}")
     public ResponseEntity<?> GetProyectoDesarrolladorById(@PathVariable int id) {
-        ModelMapper m = new ModelMapper();
-        Optional<ProyectoDesarrollador> pd = ProyectoDesarrolladorService.GetProyectoDesarrolladorById(id);
-        if (pd.isEmpty()) {
+        Optional<ProyectoDesarrollador> pdOpt = ProyectoDesarrolladorService.GetProyectoDesarrolladorById(id);
+        if (pdOpt.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Asignación no encontrada");
         }
-        ProyectoDesarrolladorDTO dto = m.map(pd.get(), ProyectoDesarrolladorDTO.class);
+        ProyectoDesarrollador pd = pdOpt.get();
+        ProyectoDesarrolladorDTO dto = new ProyectoDesarrolladorDTO();
+        dto.setIdProyDesar(pd.getIdProyDesar());
+        dto.setIdProyecto(pd.getIdProyecto() != null ? pd.getIdProyecto().getIdProject() : 0);
+        dto.setIdDesarrollador(pd.getIdDesarrollador() != null ? pd.getIdDesarrollador().getIdDesarrollador() : 0);
         return ResponseEntity.ok(dto);
     }
 
@@ -57,10 +64,24 @@ public class ProyectoDesarrolladorController {
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La asignación no puede ser nula");
         }
-        ModelMapper m = new ModelMapper();
-        ProyectoDesarrollador pd = m.map(dto, ProyectoDesarrollador.class);
+        ProyectoDesarrollador pd = new ProyectoDesarrollador();
+        pd.setIdProyDesar(dto.getIdProyDesar());
+
+        Proyectos p = new Proyectos();
+        p.setIdProject(dto.getIdProyecto());
+        pd.setIdProyecto(p);
+
+        Desarrolladores d = new Desarrolladores();
+        d.setIdDesarrollador(dto.getIdDesarrollador());
+        pd.setIdDesarrollador(d);
+
         ProyectoDesarrollador nuevo = ProyectoDesarrolladorService.InsertProyectoDesarrollador(pd);
-        ProyectoDesarrolladorDTO nuevoDTO = m.map(nuevo, ProyectoDesarrolladorDTO.class);
+
+        ProyectoDesarrolladorDTO nuevoDTO = new ProyectoDesarrolladorDTO();
+        nuevoDTO.setIdProyDesar(nuevo.getIdProyDesar());
+        nuevoDTO.setIdProyecto(nuevo.getIdProyecto() != null ? nuevo.getIdProyecto().getIdProject() : 0);
+        nuevoDTO.setIdDesarrollador(nuevo.getIdDesarrollador() != null ? nuevo.getIdDesarrollador().getIdDesarrollador() : 0);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoDTO);
     }
 
@@ -78,8 +99,13 @@ public class ProyectoDesarrolladorController {
 
         ProyectoDesarrollador pd = existente.get();
 
-        ModelMapper m = new ModelMapper();
-        m.map(dto, pd);
+        Proyectos p = new Proyectos();
+        p.setIdProject(dto.getIdProyecto());
+        pd.setIdProyecto(p);
+
+        Desarrolladores d = new Desarrolladores();
+        d.setIdDesarrollador(dto.getIdDesarrollador());
+        pd.setIdDesarrollador(d);
 
         ProyectoDesarrolladorService.UpdateProyectoDesarrollador(pd);
         return ResponseEntity.ok("Asignación actualizada correctamente");

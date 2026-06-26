@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public interface IMensajesService {
     public List<Mensajes> GetMensaje();
+    public List<Mensajes> GetMensajesByProyecto(int idProyecto);
     public Mensajes InsertMensaje(Mensajes mensaje);
     public void UpdateMensaje(Mensajes mensaje);
     public void DeleteMensaje(int IdMensaje);

@@ -19,6 +19,11 @@ public class MensajesServiceImplement implements IMensajesService {
     }
 
     @Override
+    public List<Mensajes> GetMensajesByProyecto(int idProyecto) {
+        return MSRepository.findByIdProyecto_IdProject(idProyecto);
+    }
+
+    @Override
     public Mensajes InsertMensaje(Mensajes mensaje) {
         return MSRepository.save(mensaje);
     }

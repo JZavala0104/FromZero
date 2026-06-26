@@ -34,9 +34,6 @@ public class ProyectosController {
                 .map(p -> m.map(p, ProyectosDTO.class))
                 .collect(Collectors.toList());
 
-        if (listaDTO.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay proyectos registrados");
-        }
         return ResponseEntity.ok(listaDTO);
     }
 

@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface IMensajesRepository extends JpaRepository<Mensajes, Integer> {
     List<Mensajes> findAllByOrderByIdMensajeAsc();
+    List<Mensajes> findByIdProyecto_IdProject(int idProject);
 }

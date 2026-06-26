@@ -31,9 +31,6 @@ public class NotificacionesController {
                 .map(n -> m.map(n, NotificacionesDTO.class))
                 .collect(Collectors.toList());
 
-        if (listaDTO.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay notificaciones registradas");
-        }
         return ResponseEntity.ok(listaDTO);
     }
 

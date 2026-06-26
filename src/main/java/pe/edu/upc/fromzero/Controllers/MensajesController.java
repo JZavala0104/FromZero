@@ -8,6 +8,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fromzero.DTO.MensajesDTO;
 import pe.edu.upc.fromzero.Entities.Mensajes;
+import pe.edu.upc.fromzero.Entities.Proyectos;
+import pe.edu.upc.fromzero.Entities.Usuarios;
 import pe.edu.upc.fromzero.ServiceInterface.IMensajesService;
 
 import java.util.Optional;
@@ -26,26 +28,52 @@ public class MensajesController {
     @GetMapping("/Get")
     //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte')")
     public ResponseEntity<?> GetMensajes() {
-        ModelMapper m = new ModelMapper();
         List<MensajesDTO> listaDTO = MensajesService.GetMensaje().stream()
-                .map(msg -> m.map(msg, MensajesDTO.class))
+                .map(msg -> {
+                    MensajesDTO dto = new MensajesDTO();
+                    dto.setIdMensaje(msg.getIdMensaje());
+                    dto.setMensaje(msg.getMensaje());
+                    dto.setFecha(msg.getFecha());
+                    dto.setIdProyecto(msg.getIdProyecto() != null ? msg.getIdProyecto().getIdProject() : 0);
+                    dto.setIdUser(msg.getIdUser() != null ? msg.getIdUser().getIdUser() : 0);
+                    return dto;
+                })
                 .collect(Collectors.toList());
 
-        if (listaDTO.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay mensajes registrados");
-        }
         return ResponseEntity.ok(listaDTO);
     }
 
     @GetMapping("/Get/{id}")
     public ResponseEntity<?> GetMensajeById(@PathVariable int id) {
-        ModelMapper m = new ModelMapper();
         Optional<Mensajes> mensaje = MensajesService.GetMensajeById(id);
         if (mensaje.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mensaje no encontrado");
         }
-        MensajesDTO dto = m.map(mensaje.get(), MensajesDTO.class);
+        Mensajes msg = mensaje.get();
+        MensajesDTO dto = new MensajesDTO();
+        dto.setIdMensaje(msg.getIdMensaje());
+        dto.setMensaje(msg.getMensaje());
+        dto.setFecha(msg.getFecha());
+        dto.setIdProyecto(msg.getIdProyecto() != null ? msg.getIdProyecto().getIdProject() : 0);
+        dto.setIdUser(msg.getIdUser() != null ? msg.getIdUser().getIdUser() : 0);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/GetByProyecto/{idProyecto}")
+    public ResponseEntity<?> GetMensajesByProyecto(@PathVariable int idProyecto) {
+        List<MensajesDTO> listaDTO = MensajesService.GetMensajesByProyecto(idProyecto).stream()
+                .map(msg -> {
+                    MensajesDTO dto = new MensajesDTO();
+                    dto.setIdMensaje(msg.getIdMensaje());
+                    dto.setMensaje(msg.getMensaje());
+                    dto.setFecha(msg.getFecha());
+                    dto.setIdProyecto(msg.getIdProyecto() != null ? msg.getIdProyecto().getIdProject() : 0);
+                    dto.setIdUser(msg.getIdUser() != null ? msg.getIdUser().getIdUser() : 0);
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(listaDTO);
     }
 
     @PostMapping("/Post")
@@ -57,10 +85,28 @@ public class MensajesController {
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El mensaje no puede ser nulo");
         }
-        ModelMapper m = new ModelMapper();
-        Mensajes msg = m.map(dto, Mensajes.class);
+        Mensajes msg = new Mensajes();
+        msg.setIdMensaje(dto.getIdMensaje());
+        msg.setMensaje(dto.getMensaje());
+        msg.setFecha(dto.getFecha());
+
+        Proyectos p = new Proyectos();
+        p.setIdProject(dto.getIdProyecto());
+        msg.setIdProyecto(p);
+
+        Usuarios u = new Usuarios();
+        u.setIdUser(dto.getIdUser());
+        msg.setIdUser(u);
+
         Mensajes nuevo = MensajesService.InsertMensaje(msg);
-        MensajesDTO nuevoDTO = m.map(nuevo, MensajesDTO.class);
+
+        MensajesDTO nuevoDTO = new MensajesDTO();
+        nuevoDTO.setIdMensaje(nuevo.getIdMensaje());
+        nuevoDTO.setMensaje(nuevo.getMensaje());
+        nuevoDTO.setFecha(nuevo.getFecha());
+        nuevoDTO.setIdProyecto(nuevo.getIdProyecto() != null ? nuevo.getIdProyecto().getIdProject() : 0);
+        nuevoDTO.setIdUser(nuevo.getIdUser() != null ? nuevo.getIdUser().getIdUser() : 0);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoDTO);
     }
 
@@ -81,10 +127,16 @@ public class MensajesController {
         }
 
         Mensajes msg = existente.get();
-        // Actualización manual de campos
         msg.setMensaje(dto.getMensaje());
         msg.setFecha(dto.getFecha());
-        // Las relaciones (Proyecto/Usuario) se mantienen o se gestionan vía ModelMapper
+
+        Proyectos p = new Proyectos();
+        p.setIdProject(dto.getIdProyecto());
+        msg.setIdProyecto(p);
+
+        Usuarios u = new Usuarios();
+        u.setIdUser(dto.getIdUser());
+        msg.setIdUser(u);
 
         MensajesService.UpdateMensaje(msg);
         return ResponseEntity.ok("Mensaje actualizado");
