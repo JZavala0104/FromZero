@@ -30,6 +30,7 @@ public class Revisiones {
         this.estado = estado;
         this.fecha = fecha;
     }
+    //holaprueba
 
     public int getIdRevision() {
         return idRevision;
@@ -50,7 +51,7 @@ public class Revisiones {
     public String getComentar() {
         return comentar;
     }
-
+    //prueba2
     public void setComentar(String comentar) {
         this.comentar = comentar;
     }
