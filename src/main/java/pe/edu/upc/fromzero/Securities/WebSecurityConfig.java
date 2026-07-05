@@ -73,7 +73,6 @@ public class WebSecurityConfig {
         return source;
     }
 
-    /* ## CONFIGURACION SECURITY
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -95,8 +94,8 @@ public class WebSecurityConfig {
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
-    }*/
-    @Bean
+    }
+    /*@Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .cors(Customizer.withDefaults())
@@ -112,5 +111,5 @@ public class WebSecurityConfig {
         // httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
-    }
+    }*/
 }

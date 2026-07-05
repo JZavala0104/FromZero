@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/proyectos")
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class ProyectosController {
 
     @Autowired
