@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/empresas")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'OPERADOR', 'DESARROLLADOR')")
 public class EmpresasController {
 
     @Autowired
@@ -24,7 +25,7 @@ public class EmpresasController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Gerente', 'Analista', 'Moderador')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'OPERADOR', 'DESARROLLADOR', 'EMPRESARIO')")
     public ResponseEntity<?> GetEmpresas() {
         ModelMapper m = new ModelMapper();
         List<EmpresasDTO> listaDTO = EmpresasService.GetEmpresa().stream()
@@ -49,7 +50,7 @@ public class EmpresasController {
     }
 
     @PostMapping("/Post")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'OPERADOR')")
     public ResponseEntity<?> PostEmpresas(@RequestBody EmpresasDTO dto) {
         if (dto.getDescripcion() == null || dto.getNombreEmpresa() == null    || dto.getIdUser() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -65,7 +66,7 @@ public class EmpresasController {
     }
 
     @PutMapping("/Put")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Moderador')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'OPERADOR')")
     public ResponseEntity<?> PutEmpresas(@RequestBody EmpresasDTO dto) {
         if (dto.getDescripcion() == null || dto.getNombreEmpresa() == null    || dto.getIdUser() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -89,7 +90,7 @@ public class EmpresasController {
     }
 
     @DeleteMapping("/Delete/{IdEmpresa}")
-    //@PreAuthorize("hasAuthority('Administrador')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> DeleteEmpresas(@PathVariable("IdEmpresa") int IdEmpresa) {
         Optional<Empresas> existente = EmpresasService.GetEmpresaById(IdEmpresa);
 

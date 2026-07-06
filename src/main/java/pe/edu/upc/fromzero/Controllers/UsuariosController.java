@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'OPERADOR')")
 public class UsuariosController {
 
     @Autowired
@@ -28,7 +29,7 @@ public class UsuariosController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
-    //@PreAuthorize("hasAuthority('Administrador')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'OPERADOR', 'DESARROLLADOR','EMPRESARIO')")
     public ResponseEntity<?> GetUsuarios() {
         ModelMapper m = new ModelMapper();
         List<UsuariosGetDTO> usuariosDTO = UsuariosService.GetUsuario().stream()
@@ -42,13 +43,14 @@ public class UsuariosController {
     }
 
     @GetMapping("/Get/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> GetUsuarioById(@PathVariable int id) {
         ModelMapper m = new ModelMapper();
         Optional<Usuarios> usuario = UsuariosService.GetUsuarioById(id);
         if (usuario.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
         }
-        UsuariosGetDTO dto = m.map(usuario.get(), UsuariosGetDTO.class);
+        UsuariosDTO dto = m.map(usuario.get(), UsuariosDTO.class);
         return ResponseEntity.ok(dto);
     }
 
@@ -68,7 +70,6 @@ public class UsuariosController {
     }
 
     @PutMapping("/Put")
-    //@PreAuthorize("hasAuthority('Administrador')")
     public ResponseEntity<?> PutUsuarios(@RequestBody UsuariosDTO dto) {
         if (dto.getNombre() == null || dto.getEmail() == null || dto.getPassword() == null || dto.getFechaRegistro() == null || dto.getIdRol() == 0 || dto.getUsername() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -96,7 +97,7 @@ public class UsuariosController {
     }
 
     @DeleteMapping("/Delete/{IdUser}")
-    //@PreAuthorize("hasAuthority('Administrador')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> DeleteUsuarios(@PathVariable("IdUser") int IdUser) {
         Optional<Usuarios> usuario = UsuariosService.GetUsuarioById(IdUser);
 
