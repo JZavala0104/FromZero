@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/mensajes")
+@PreAuthorize("hasAnyAuthority('ADMIN','OPERADOR','DESARROLLADOR','EMPRESARIO')")
 public class MensajesController {
 
     @Autowired
@@ -26,7 +27,6 @@ public class MensajesController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador', 'Soporte')")
     public ResponseEntity<?> GetMensajes() {
         List<MensajesDTO> listaDTO = MensajesService.GetMensaje().stream()
                 .map(msg -> {
@@ -77,7 +77,6 @@ public class MensajesController {
     }
 
     @PostMapping("/Post")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Soporte')")
     public ResponseEntity<?> PostMensajes(@RequestBody MensajesDTO dto) {
         if (dto.getIdUser() == 0 || dto.getIdProyecto() == 0 || dto.getMensaje() == null || dto.getFecha() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -111,7 +110,6 @@ public class MensajesController {
     }
 
     @PutMapping("/Put")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Desarrollador', 'Empresa', 'Moderador')")
     public ResponseEntity<?> PutMensajes(@RequestBody MensajesDTO dto) {
         if (dto.getIdUser() == 0 || dto.getIdProyecto() == 0 || dto.getMensaje() == null || dto.getFecha() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -143,7 +141,6 @@ public class MensajesController {
     }
 
     @DeleteMapping("/Delete/{IdMensaje}")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Moderador')")
     public ResponseEntity<?> DeleteMensajes(@PathVariable("IdMensaje") int IdMensaje) {
         Optional<Mensajes> existente = MensajesService.GetMensajeById(IdMensaje);
 

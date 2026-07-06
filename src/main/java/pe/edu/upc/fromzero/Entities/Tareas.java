@@ -2,6 +2,8 @@ package pe.edu.upc.fromzero.Entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "Tareas")
 public class Tareas {
@@ -9,22 +11,22 @@ public class Tareas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTarea;
     @ManyToOne
-    @JoinColumn(name = "IdProyecto")
-    private Proyectos idProyecto;
+    @JoinColumn(name = "idProject")
+    private Proyectos idProject;
     @Column(name = "Titulo",length = 150,nullable = false)
     private String titulo;
     @Column(name = "Descripcion",nullable = false)
     private String descripcion;
     @Column(name = "FechaLimite",nullable = false)
-    private String fechaLimite;
+    private LocalDateTime fechaLimite;
     @Column(name = "Estado",length = 50,nullable = false)
     private String estado;
     public Tareas() {
     }
 
-    public Tareas(int idTarea, Proyectos idProyecto, String titulo, String descripcion, String fechaLimite, String estado) {
+    public Tareas(int idTarea, Proyectos idProject, String titulo, String descripcion, LocalDateTime fechaLimite, String estado) {
         this.idTarea = idTarea;
-        this.idProyecto = idProyecto;
+        this.idProject = idProject;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fechaLimite = fechaLimite;
@@ -39,12 +41,12 @@ public class Tareas {
         this.idTarea = idTarea;
     }
 
-    public Proyectos getIdProyecto() {
-        return idProyecto;
+    public Proyectos getIdProject() {
+        return idProject;
     }
 
-    public void setIdProyecto(Proyectos idProyecto) {
-        this.idProyecto = idProyecto;
+    public void setIdProject(Proyectos idProject) {
+        this.idProject = idProject;
     }
 
     public String getTitulo() {
@@ -63,11 +65,11 @@ public class Tareas {
         this.descripcion = descripcion;
     }
 
-    public String getFechaLimite() {
+    public LocalDateTime getFechaLimite() {
         return fechaLimite;
     }
 
-    public void setFechaLimite(String fechaLimite) {
+    public void setFechaLimite(LocalDateTime fechaLimite) {
         this.fechaLimite = fechaLimite;
     }
 

@@ -1,11 +1,13 @@
 package pe.edu.upc.fromzero.DTO;
 
+import java.time.LocalDateTime;
+
 public class TareasDTO {
     private int idTarea;
-    private int idProyecto;
+    private int idProject;
     private String titulo;
     private String descripcion;
-    private String fechaLimite;
+    private LocalDateTime fechaLimite;
     private String estado;
 
     public int getIdTarea() {
@@ -16,12 +18,12 @@ public class TareasDTO {
         this.idTarea = idTarea;
     }
 
-    public int getIdProyecto() {
-        return idProyecto;
+    public int getIdProject() {
+        return idProject;
     }
 
-    public void setIdProyecto(int idProyecto) {
-        this.idProyecto = idProyecto;
+    public void setIdProject(int idProject) {
+        this.idProject = idProject;
     }
 
     public String getTitulo() {
@@ -40,11 +42,11 @@ public class TareasDTO {
         this.descripcion = descripcion;
     }
 
-    public String getFechaLimite() {
+    public LocalDateTime getFechaLimite() {
         return fechaLimite;
     }
 
-    public void setFechaLimite(String fechaLimite) {
+    public void setFechaLimite(LocalDateTime fechaLimite) {
         this.fechaLimite = fechaLimite;
     }
 

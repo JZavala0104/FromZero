@@ -29,6 +29,7 @@ public class UsuariosController {
     /*CRUD------------------------------------*/
 
     @GetMapping("/Get")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'OPERADOR', 'DESARROLLADOR','EMPRESARIO')")
     public ResponseEntity<?> GetUsuarios() {
         ModelMapper m = new ModelMapper();
         List<UsuariosGetDTO> usuariosDTO = UsuariosService.GetUsuario().stream()

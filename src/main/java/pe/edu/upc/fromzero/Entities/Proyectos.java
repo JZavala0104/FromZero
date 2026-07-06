@@ -13,7 +13,7 @@ public class Proyectos {
     private int idProject;
     @ManyToOne
     @JoinColumn(name = "IdEmpresa")
-    private Empresas idEmpresa;
+    private Empresas empresa;
     @Column(name = "Titulo",length = 150,nullable = false)
     private String titulo;
     @Column(name = "Descripcion",nullable = false)
@@ -32,7 +32,7 @@ public class Proyectos {
 
     public Proyectos(int idProject, Empresas idEmpresa, String titulo, String descripcion, double presupuesto, String estado, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
         this.idProject = idProject;
-        this.idEmpresa = idEmpresa;
+        this.empresa = idEmpresa;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.presupuesto = presupuesto;
@@ -50,11 +50,11 @@ public class Proyectos {
     }
 
     public Empresas getIdEmpresa() {
-        return idEmpresa;
+        return empresa;
     }
 
     public void setIdEmpresa(Empresas idEmpresa) {
-        this.idEmpresa = idEmpresa;
+        this.empresa = idEmpresa;
     }
 
     public String getTitulo() {

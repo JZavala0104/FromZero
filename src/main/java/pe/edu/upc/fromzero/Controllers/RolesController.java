@@ -16,12 +16,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/roles")
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class RolesController {
     @Autowired
     private IRolesService RolesService;
     /*CRUD------------------------------------*/
     @GetMapping("/Get")
-    //@PreAuthorize("hasAuthority('Administrador')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'OPERADOR', 'DESARROLLADOR','EMPRESARIO')")
     public ResponseEntity<?> GetRoles(){
         ModelMapper m = new ModelMapper();
         List<RolesDTO> rolesDTO = RolesService.GetRol().stream().map(r -> m.map(r, RolesDTO.class)).collect(Collectors.toList());

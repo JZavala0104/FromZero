@@ -25,6 +25,7 @@ public class ProyectosController {
 
     /*CRUD------------------------------------*/
     @GetMapping("/Get")
+    @PreAuthorize("hasAnyAuthority('ADMIN','OPERADOR','DESARROLLADOR','EMPRESARIO')")
     public ResponseEntity<?> GetProyectos() {
         ModelMapper m = new ModelMapper();
         m.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -57,7 +58,6 @@ public class ProyectosController {
     }
 
     @PostMapping("/Post")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
     public ResponseEntity<?> PostProyectos(@RequestBody ProyectosDTO dto) {
         if (dto.getTitulo() == null || dto.getIdEmpresa() == 0 || dto.getPresupuesto() == 0 || dto.getDescripcion() == null || dto.getEstado() == null || dto.getFechaInicio() == null || dto.getFechaFin() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -68,12 +68,11 @@ public class ProyectosController {
         ModelMapper m = new ModelMapper();
         Proyectos p = m.map(dto, Proyectos.class);
         Proyectos nuevo = ProyectosService.InsertProyecto(p);
-        ProyectosDTO nuevoDTO = m.map(nuevo, ProyectosDTO.class);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoDTO);
+        //ProyectosDTO nuevoDTO = m.map(nuevo, ProyectosDTO.class);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
 
     @PutMapping("/Put")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa', 'Moderador')")
     public ResponseEntity<?> PutProyectos(@RequestBody ProyectosDTO dto) {
         if (dto.getTitulo() == null || dto.getIdEmpresa() == 0 || dto.getPresupuesto() == 0 || dto.getDescripcion() == null || dto.getEstado() == null || dto.getFechaInicio() == null || dto.getFechaFin() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ningún campo puede ser nulo");
@@ -102,7 +101,7 @@ public class ProyectosController {
     }
 
     @DeleteMapping("/Delete/{IdProject}")
-    //@PreAuthorize("hasAnyAuthority('Administrador', 'Empresa')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'OPERADOR')")
     public ResponseEntity<?> DeleteProyectos(@PathVariable("IdProject") int IdProject) {
         Optional<Proyectos> existente = ProyectosService.GetProyectoById(IdProject);
 
